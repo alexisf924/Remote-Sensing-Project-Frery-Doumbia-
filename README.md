@@ -6,6 +6,6 @@ The folder "data"   contains all unprocessed master data and processed data , wi
 
 - The folder "WebGIS" contain the link to access in real time to the web page of the project 
 
-- The folder "Informations" contain the Word documents with the informations of the project and the workflow of the project with the Diagram of the methodology  
+- The folder "Informations" contain the Word documents with the informations of the project and the workflow of the project with the Diagram of the methodology and the explication of the methodology  
 
 - The access at the webGIS is possible with this link : https://alexisf924.github.io/Remote-Sensing-Project-Frery-Doumbia-/
