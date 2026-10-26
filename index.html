@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GeoSense — Projet de Télédétection</title>
+  <!-- Leaflet (fond de carte OpenStreetMap) — chargé en local/production ; l'aperçu sandboxé bloque les CDN -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    /* ===== Variables & reset ===== */
+    :root {
+      --bg: #0b1220;
+      --bg-soft: #111c30;
+      --card: #16233b;
+      --border: #24334f;
+      --text: #e6edf7;
+      --muted: #93a4bf;
+      --accent: #38bdf8;
+      --accent-2: #34d399;
+      --radius: 14px;
+      font-family: "Segoe UI", system-ui, sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* ===== Header projet (matière Remote Sensing) ===== */
+    #project-header {
+      background: linear-gradient(135deg, #0e2a47 0%, #123a5c 55%, #0d5c4a 100%);
+      border-bottom: 3px solid var(--accent);
+      padding: 2.2rem 1.5rem 2rem;
+    }
+    .header-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; gap: 1.8rem; flex-wrap: wrap;
+    }
+    .header-logo { flex-shrink: 0; }
+    .header-text { flex: 1; min-width: 240px; }
+    .header-course {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.18);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem; border-radius: 999px;
+      margin-bottom: 0.7rem;
+    }
+    .header-text h1 {
+      font-size: clamp(1.4rem, 3.5vw, 2.1rem);
+      line-height: 1.25; margin-bottom: 0.35rem;
+    }
+    .header-text h1 span { color: var(--accent); }
+    .header-tagline { color: #c9dbf0; font-size: 0.95rem; margin-bottom: 0.9rem; }
+    .header-meta {
+      display: flex; gap: 1.5rem; flex-wrap: wrap;
+      font-size: 0.85rem; color: var(--muted);
+    }
+    .header-meta div strong { color: var(--text); font-weight: 600; }
+
+    /* ===== Navigation ===== */
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(11, 18, 32, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 1.5rem;
+    }
+    .logo { font-weight: 700; font-size: 1.15rem; letter-spacing: 0.5px; }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 1.4rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .burger { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+
+    /* ===== Sections ===== */
+    section { max-width: 1100px; margin: 0 auto; padding: 4.5rem 1.5rem; }
+    h2 { font-size: 1.8rem; margin-bottom: 0.4rem; }
+    .subtitle { color: var(--muted); margin-bottom: 2rem; }
+
+    /* ===== Hero ===== */
+    #hero {
+      text-align: center;
+      padding: 7rem 1.5rem 6rem;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(56, 189, 248, 0.15), transparent 55%),
+        radial-gradient(ellipse at 75% 80%, rgba(52, 211, 153, 0.12), transparent 55%);
+    }
+    #hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.2; }
+    #hero h1 span { color: var(--accent); }
+    #hero p { max-width: 640px; margin: 1.2rem auto 2rem; color: var(--muted); font-size: 1.05rem; }
+    .btn {
+      display: inline-block; padding: 0.8rem 1.6rem; border-radius: 999px;
+      text-decoration: none; font-weight: 600; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary { background: var(--accent); color: #06121f; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(56,189,248,0.35); }
+    .btn-ghost { border: 1px solid var(--border); color: var(--text); margin-left: 0.6rem; }
+    .btn-ghost:hover { border-color: var(--accent); }
+
+    /* ===== Cards / grid ===== */
+    .grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.4rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .card .icon { font-size: 1.6rem; margin-bottom: 0.6rem; }
+    .card h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+    .card p { color: var(--muted); font-size: 0.92rem; }
+
+    /* ===== Stats ===== */
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
+    .stat { text-align: center; background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem 1rem; }
+    .stat .value { font-size: 2rem; font-weight: 700; color: var(--accent); }
+    .stat .label { color: var(--muted); font-size: 0.9rem; }
+
+    /* ===== Visualisation NDVI ===== */
+    .viz-panel {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem;
+    }
+    .viz-controls { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
+    input[type="range"] { flex: 1; min-width: 200px; accent-color: var(--accent); }
+    .legend { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
+    .legend span {
+      display: inline-block; padding: 0.25rem 0.7rem; border-radius: 999px;
+      font-size: 0.8rem; color: #06121f; font-weight: 600;
+    }
+
+    /* ===== Carte interactive ===== */
+    .map-wrap {
+      display: grid; grid-template-columns: 1fr 250px; gap: 1rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1rem;
+    }
+    .map-frame {
+      position: relative; overflow: hidden;
+      border-radius: 10px; border: 1px solid var(--border);
+      background: #0d1626; cursor: grab;
+    }
+    .map-frame.dragging { cursor: grabbing; }
+    .map-frame svg { display: block; width: 100%; height: auto; }
+    .map-tooltip {
+      position: absolute; pointer-events: none;
+      background: rgba(11, 18, 32, 0.95); border: 1px solid var(--accent);
+      color: var(--text); font-size: 0.78rem;
+      padding: 0.35rem 0.6rem; border-radius: 8px;
+      transform: translate(-50%, -130%); white-space: nowrap;
+      opacity: 0; transition: opacity 0.15s;
+    }
+    .map-tooltip.show { opacity: 1; }
+    .map-zoom {
+      position: absolute; top: 0.6rem; left: 0.6rem;
+      display: flex; flex-direction: column; gap: 0.3rem;
+    }
+    .map-zoom button {
+      width: 30px; height: 30px; border-radius: 8px;
+      border: 1px solid var(--border); background: rgba(17, 28, 48, 0.9);
+      color: var(--text); font-size: 1rem; cursor: pointer;
+    }
+    .map-zoom button:hover { border-color: var(--accent); color: var(--accent); }
+    .map-side h3 { font-size: 1rem; margin-bottom: 0.8rem; }
+    .layer-item {
+      display: flex; align-items: center; gap: 0.6rem;
+      padding: 0.55rem 0.7rem; margin-bottom: 0.45rem;
+      background: var(--bg-soft); border: 1px solid var(--border);
+      border-radius: 10px; cursor: pointer; user-select: none;
+      transition: border-color 0.2s;
+    }
+    .layer-item:hover { border-color: var(--accent); }
+    .layer-item input { accent-color: var(--accent); width: 16px; height: 16px; cursor: pointer; }
+    .layer-item .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .layer-item span.label { font-size: 0.85rem; }
+    .map-side .hint { color: var(--muted); font-size: 0.78rem; margin-top: 0.8rem; }
+
+    /* ===== Formulaire ===== */
+    form { display: grid; gap: 1rem; max-width: 560px; }
+    label { font-size: 0.9rem; color: var(--muted); }
+    input, textarea {
+      width: 100%; padding: 0.75rem 0.9rem; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--bg-soft);
+      color: var(--text); font-family: inherit; font-size: 0.95rem;
+    }
+    input:focus, textarea:focus { outline: 2px solid var(--accent); border-color: transparent; }
+    button[type="submit"] {
+      justify-self: start; padding: 0.75rem 1.6rem; border: none; border-radius: 999px;
+      background: var(--accent-2); color: #06121f; font-weight: 700; cursor: pointer;
+      transition: transform 0.2s;
+    }
+    button[type="submit"]:hover { transform: translateY(-2px); }
+    .form-msg { color: var(--accent-2); font-size: 0.9rem; display: none; }
+
+    /* ===== Footer ===== */
+    footer { border-top: 1px solid var(--border); padding: 2rem 1.5rem; text-align: center; color: var(--muted); font-size: 0.9rem; }
+
+    /* ===== Méthodologie (schéma de flux) ===== */
+    #methodologie .flow { display: flex; flex-direction: column; align-items: center; gap: 0; }
+    .step {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--card); border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 1rem 1.4rem; width: 100%; max-width: 640px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .step:hover { transform: translateX(6px); border-color: var(--accent); }
+    .step .num {
+      flex-shrink: 0; width: 40px; height: 40px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(56, 189, 248, 0.15); border: 1px solid var(--accent);
+      color: var(--accent); border-radius: 50%;
+      font-weight: 700; font-size: 0.95rem;
+    }
+    .step .num.green { border-color: var(--accent-2); color: var(--accent-2); background: rgba(52, 211, 153, 0.12); }
+    .step h3 { font-size: 1rem; margin-bottom: 0.15rem; }
+    .step p { color: var(--muted); font-size: 0.88rem; }
+    .step .tools { font-size: 0.8rem; color: var(--accent); margin-top: 0.3rem; display: block; }
+    .arrow {
+      color: var(--accent); font-size: 1.5rem; line-height: 1;
+      padding: 0.45rem 0; user-select: none;
+      animation: bounce 1.6s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); opacity: 0.7; }
+      50% { transform: translateY(4px); opacity: 1; }
+    }
+    @media (max-width: 720px) {
+      .step { flex-direction: column; text-align: center; align-items: center; }
+      .step:hover { transform: none; }
+      .step .tools { display: none; }
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 720px) {
+      .map-wrap { grid-template-columns: 1fr; }
+      .burger { display: block; }
+      .nav-links {
+        display: none; position: absolute; top: 100%; left: 0; right: 0;
+        flex-direction: column; background: var(--bg-soft);
+        border-bottom: 1px solid var(--border); padding: 1rem 1.5rem;
+      }
+      .nav-links.open { display: flex; }
+      .btn-ghost { margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ===== HEADER PROJET — Matière Remote Sensing ===== -->
+  <div id="project-header">
+    <div class="header-inner">
+      <div class="header-logo">
+        <!-- Logo satellite en SVG inline -->
+        <svg width="72" height="72" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Icône satellite">
+          <circle cx="32" cy="32" r="14" fill="#38bdf8" opacity="0.25"/>
+          <rect x="26" y="26" width="12" height="12" rx="2.5" fill="#38bdf8"/>
+          <path d="M8 24h12v6H8zM8 34h12v6H8zM44 24h12v6H44zM44 34h12v6H44z" fill="#93a4bf"/>
+          <path d="M20 27h6M38 27h6M20 37h6M38 37h6" stroke="#e6edf7" stroke-width="2"/>
+          <path d="M14 54c4-6 10-9 18-9s14 3 18 9" stroke="#34d399" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div class="header-text">
+        <span class="header-course">Remote Sensing — Télédétection</span>
+        <h1>GeoSense<span> · Analyse spatiale par télédétection</span></h1>
+        <p class="header-tagline">Projet de fin de module — Observation de la Terre &amp; analyse d'images satellitaires</p>
+        <div class="header-meta">
+          <div>Étudiant : <strong>Alexis Frery</strong></div>
+          <div>Année universitaire : <strong>2026 – 2027</strong></div>
+          <div>Données : <strong>Sentinel-2 (Copernicus / ESA)</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== NAVIGATION ===== -->
+  <header>
+    <nav>
+      <div class="logo">Geo<span>Sense</span></div>
+      <button class="burger" id="burger" aria-label="Menu">☰</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#hero">Accueil</a></li>
+        <li><a href="#objectifs">Objectifs</a></li>
+        <li><a href="#methodologie">Méthodologie</a></li>
+        <li><a href="#donnees">Données</a></li>
+        <li><a href="#visualisation">Visualisation</a></li>
+        <li><a href="#carte">Carte</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section id="hero">
+    <h1>Observation de la Terre par <span>Télédétection</span></h1>
+    <p>Analyse multi-temporelle de l'occupation du sol à partir d'images satellitaires Sentinel-2 : suivi de la végétation, détection des changements et cartographie interactive.</p>
+    <a href="#visualisation" class="btn btn-primary">Explorer la démo</a>
+    <a href="#donnees" class="btn btn-ghost">Voir les données</a>
+  </section>
+
+  <!-- ===== OBJECTIFS ===== -->
+  <section id="objectifs">
+    <h2>Objectifs du projet</h2>
+    <p class="subtitle">Trois axes de recherche autour de l'analyse d'images satellitaires.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="icon">🛰️</div>
+        <h3>Acquisition &amp; prétraitement</h3>
+        <p>Téléchargement de scènes Sentinel-2 (MSI, 10 m), corrections atmosphériques et composition de mosaïques sans nuages.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🌿</div>
+        <h3>Indices de végétation</h3>
+        <p>Calcul du NDVI, EVI et NDWI pour le suivi de la santé de la végétation et du stress hydrique.</p>
+      </div>
+      <div class="card">
+        <div class="icon">📊</div>
+        <h3>Détection des changements</h3>
+        <p>Comparaison multi-dates pour identifier déforestation, urbanisation et évolution agricole.</p>
+      </div>
+      <div class="card">
+        <div class="icon">🗺️</div>
+        <h3>Cartographie interactive</h3>
+        <p>Publication des résultats sous forme de cartes web consultables et exportables.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MÉTHODOLOGIE (SCHÉMA DE FLUX) ===== -->
+  <section id="methodologie">
+    <h2>Méthodologie</h2>
+    <p class="subtitle">Chaîne de traitement appliquée au projet, de l'acquisition des images à la diffusion des résultats.</p>
+    <div class="flow">
+      <div class="step">
+        <div class="num">1</div>
+        <div>
+          <h3>Acquisition des données</h3>
+          <p>Recherche et téléchargement de scènes Sentinel-2 (niveau 2A) sur la zone d'étude, filtrage par couverture nuageuse (&lt; 10 %).</p>
+          <span class="tools">Outils : Copernicus Data Space · Sentinel Hub</span>
+        </div>
+      </div>
+      <div class="arrow">▼</div>
+
+      <div class="step">
+        <div class="num">2</div>
+        <div>
+          <h3>Prétraitement</h3>
+          <p>Correction atmosphérique (Sen2Cor), empilement des bandes spectrales, découpe sur l'emprise d'étude et masquage des nuages.</p>
+          <span class="tools">Outils : SNAP · QGIS</span>
+        </div>
+      </div>
+      <div class="arrow">▼</div>
+
+      <div class="step">
+        <div class="num">3</div>
+        <div>
+          <h3>Calcul des indices spectraux</h3>
+          <p>Calcul du NDVI = (PIR − R) / (PIR + R), complété par EVI et NDWI pour caractériser végétation et surfaces en eau.</p>
+          <span class="tools">Outils : Band math · Raster Calculator</span>
+        </div>
+      </div>
+      <div class="arrow">▼</div>
+
+      <div class="step">
+        <div class="num">4</div>
+        <div>
+          <h3>Classification &amp; détection des changements</h3>
+          <p>Seuillage des indices, classification de l'occupation du sol et comparaison multi-dates pour quantifier les changements.</p>
+          <span class="tools">Outils : QGIS · scripts Python (NumPy, Rasterio)</span>
+        </div>
+      </div>
+      <div class="arrow">▼</div>
+
+      <div class="step">
+        <div class="num green">5</div>
+        <div>
+          <h3>Validation &amp; diffusion des résultats</h3>
+          <p>Vérification avec des données terrain et orthophotos, puis publication sous forme de cartes et de cartes web interactives.</p>
+          <span class="tools">Outils : Matrice de confusion · QGIS2Web</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== DONNÉES / STATS ===== -->
+  <section id="donnees">
+    <h2>Données &amp; chiffres clés</h2>
+    <p class="subtitle">Synthèse du jeu de données utilisé.</p>
+    <div class="stats">
+      <div class="stat"><div class="value" data-target="120">0</div><div class="label">Scènes Sentinel-2</div></div>
+      <div class="stat"><div class="value" data-target="10">0</div><div class="label">Résolution (m)</div></div>
+      <div class="stat"><div class="value" data-target="5">0</div><div class="label">Années couvertes</div></div>
+      <div class="stat"><div class="value" data-target="96">0</div><div class="label">% pixels valides</div></div>
+    </div>
+  </section>
+
+  <!-- ===== VISUALISATION ===== -->
+  <section id="visualisation">
+    <h2>Démonstration : indice NDVI</h2>
+    <p class="subtitle">Simulation interactive — le seuil NDVI détermine la classification pixel par pixel.</p>
+    <div class="viz-panel">
+      <canvas id="ndviCanvas" width="740" height="320" style="width:100%; height:auto; border-radius:10px; display:block;"></canvas>
+      <div class="viz-controls">
+        <label for="ndviSlider">Seuil de classification :</label>
+        <input type="range" id="ndviSlider" min="0" max="100" value="45" />
+        <span id="ndviValue">0.45</span>
+      </div>
+      <div class="legend">
+        <span style="background:#f4c542;">Sol nu / urbain</span>
+        <span style="background:#7ec86a;">Végétation clairsemée</span>
+        <span style="background:#1f8a4c;">Végétation dense</span>
+        <span style="background:#1e5aa8;">Eau</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CARTE INTERACTIVE ===== -->
+  <section id="carte">
+    <h2>Carte interactive</h2>
+    <p class="subtitle">Zone d'étude avec couches activables — glissez pour vous déplacer, survolez les éléments pour plus de détails.</p>
+    <div class="map-wrap">
+      <div id="osmMap" style="height:480px; border-radius:10px; border:1px solid #24334f; z-index:1;"></div>
+
+      <div class="map-side">
+        <h3>Couches</h3>
+        <label class="layer-item"><input type="checkbox" data-layer="layer-occupation" checked><span class="dot" style="background:#7ec86a;"></span><span class="label">Occupation du sol</span></label>
+        <label class="layer-item"><input type="checkbox" data-layer="layer-ndvi" checked><span class="dot" style="background:#34d399;"></span><span class="label">NDVI (végétation)</span></label>
+        <label class="layer-item"><input type="checkbox" data-layer="layer-hydro" checked><span class="dot" style="background:#38bdf8;"></span><span class="label">Hydrographie</span></label>
+        <label class="layer-item"><input type="checkbox" data-layer="layer-limites"><span class="dot" style="background:#e6edf7;"></span><span class="label">Limites administratives</span></label>
+        <label class="layer-item"><input type="checkbox" data-layer="layer-poi" checked><span class="dot" style="background:#f4c542;"></span><span class="label">Points d'intérêt</span></label>
+        <label class="layer-item"><input type="checkbox" data-layer="layer-grille" checked><span class="dot" style="background:#93a4bf;"></span><span class="label">Fond OpenStreetMap</span></label>
+        <p class="hint">💡 Carte Leaflet avec fond OpenStreetMap, chargé en local ou en ligne. Couche « NDVI » : emplacement réservé pour brancher vos tuiles Sentinel-2 (Sentinel Hub).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact">
+    <h2>Contact</h2>
+    <p class="subtitle">Une question sur le projet ou une envie de collaborer ?</p>
+    <form id="contactForm">
+      <div>
+        <label for="name">Nom</label>
+        <input id="name" type="text" required placeholder="Votre nom" />
+      </div>
+      <div>
+        <label for="email">Email</label>
+        <input id="email" type="email" required placeholder="vous@exemple.fr" />
+      </div>
+      <div>
+        <label for="message">Message</label>
+        <textarea id="message" rows="4" required placeholder="Votre message…"></textarea>
+      </div>
+      <button type="submit">Envoyer</button>
+      <p class="form-msg" id="formMsg">✅ Merci ! Votre message a bien été pris en compte.</p>
+    </form>
+  </section>
+
+  <footer>
+    © 2026 GeoSense — Projet de télédétection | Données : Copernicus Sentinel-2 (ESA)
+  </footer>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script>
+    /* =========================================
+       JS — 0. Garde-fou : Leaflet indisponible (aperçu sandboxé sans réseau)
+    ========================================== */
+    if (typeof L === "undefined") {
+      document.getElementById("osmMap").innerHTML =
+        '<div style="height:100%; display:flex; align-items:center; justify-content:center; text-align:center; color:#93a4bf; font-size:0.9rem; padding:1.5rem;">' +
+        '🗺️ Carte Leaflet / OpenStreetMap : le fond se charge en local ou en ligne (l\'aperçu sandboxé bloque les ressources externes).</div>';
+    }
+
+    /* =========================================
+       JS — 1. Menu mobile
+    ========================================== */
+    const burger = document.getElementById("burger");
+    const navLinks = document.getElementById("navLinks");
+    burger.addEventListener("click", () => navLinks.classList.toggle("open"));
+    navLinks.querySelectorAll("a").forEach(a =>
+      a.addEventListener("click", () => navLinks.classList.remove("open"))
+    );
+
+    /* =========================================
+       JS — 2. Lien actif selon la section visible
+    ========================================== */
+    const sections = document.querySelectorAll("section");
+    const navAnchors = document.querySelectorAll(".nav-links a");
+    window.addEventListener("scroll", () => {
+      let current = "";
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+      });
+      navAnchors.forEach(a =>
+        a.classList.toggle("active", a.getAttribute("href") === "#" + current)
+      );
+    });
+
+    /* =========================================
+       JS — 3. Compteurs animés (statistiques)
+    ========================================== */
+    function animateCounters() {
+      document.querySelectorAll(".stat .value").forEach(el => {
+        const target = +el.dataset.target;
+        let start = null;
+        const duration = 1200;
+        function step(ts) {
+          if (!start) start = ts;
+          const p = Math.min((ts - start) / duration, 1);
+          el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
+          if (p < 1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }
+    const statsSection = document.getElementById("donnees");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { animateCounters(); observer.disconnect(); } });
+    }, { threshold: 0.3 });
+    observer.observe(statsSection);
+
+    /* =========================================
+       JS — 4. Visualisation NDVI simulée
+    ========================================== */
+    const canvas = document.getElementById("ndviCanvas");
+    const ctx = canvas.getContext("2d");
+    const slider = document.getElementById("ndviSlider");
+    const valueLabel = document.getElementById("ndviValue");
+
+    // Génère un "champ NDVI" synthétique et reproductible (sans dépendance externe)
+    function ndviAt(x, y) {
+      const s = Math.sin(x * 0.045) * Math.cos(y * 0.035);
+      const blob = Math.exp(-((x - 180) ** 2 + (y - 160) ** 2) / 9000);   // zone dense
+      const water = Math.exp(-((x - 600) ** 2 + (y - 250) ** 2) / 4000); // plan d'eau
+      let v = 0.35 + 0.25 * s + 0.35 * blob - 0.9 * water;
+      return Math.max(-1, Math.min(1, v));
+    }
+
+    function classify(v, threshold) {
+      if (v < 0) return [30, 90, 168];                 // eau
+      if (v < threshold * 0.6) return [244, 197, 66];  // sol nu
+      if (v < threshold) return [126, 200, 106];       // végétation clairsemée
+      return [31, 138, 76];                            // végétation dense
+    }
+
+    function draw() {
+      const threshold = slider.value / 100;
+      valueLabel.textContent = threshold.toFixed(2);
+      const img = ctx.createImageData(canvas.width, canvas.height);
+      for (let y = 0; y < canvas.height; y++) {
+        for (let x = 0; x < canvas.width; x++) {
+          const v = ndviAt(x, y);
+          const [r, g, b] = classify(v, threshold);
+          const i = (y * canvas.width + x) * 4;
+          img.data[i] = r; img.data[i + 1] = g; img.data[i + 2] = b; img.data[i + 3] = 255;
+        }
+      }
+      ctx.putImageData(img, 0, 0);
+    }
+    slider.addEventListener("input", draw);
+    draw();
+
+    /* =========================================
+       JS — 5. Carte interactive Leaflet (fond OSM)
+       NB : le sandbox d'aperçu bloque les CDN ;
+       la carte s'affiche pleinement en local ou en ligne.
+    ========================================== */
+    if (typeof L !== "undefined") { // ignoré si Leaflet n'a pas pu se charger
+    const osmMap = L.map("osmMap").setView([48.8566, 2.3522], 12); // Paris — à remplacer par votre zone d'étude
+
+    // --- Fond de carte OpenStreetMap ---
+    const osmBase = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(osmMap);
+
+    // --- Couche : images Sentinel-2 (chaîne de tuiles à brancher sur vos données) ---
+    const sentinelLayer = L.tileLayer("https://services.sentinel-hub.com/ogc/wms/{your-instance-id}", {
+      layers: "FALSE_COLOR", maxZoom: 19, opacity: 0.7
+    });
+
+    // --- Couche : Occupation du sol (polygones GeoJSON de démonstration) ---
+    const occupationLayer = L.geoJSON({
+      type: "FeatureCollection",
+      features: [
+        { type: "Feature", properties: { name: "Zone agricole", type: "Agriculture" },
+          geometry: { type: "Polygon", coordinates: [[[2.30, 48.87], [2.40, 48.87], [2.40, 48.83], [2.30, 48.83], [2.30, 48.87]]] } },
+        { type: "Feature", properties: { name: "Zone urbaine", type: "Urbain" },
+          geometry: { type: "Polygon", coordinates: [[[2.32, 48.86], [2.37, 48.86], [2.37, 48.84], [2.32, 48.84], [2.32, 48.86]]] } },
+        { type: "Feature", properties: { name: "Espace vert", type: "Végétation" },
+          geometry: { type: "Polygon", coordinates: [[[2.40, 48.86], [2.46, 48.86], [2.46, 48.82], [2.40, 48.82], [2.40, 48.86]]] } }
+      ]
+    }, {
+      style: f => ({
+        color: "#38bdf8", weight: 2, fillOpacity: 0.25,
+        fillColor: { "Agriculture": "#f4c542", "Urbain": "#55616f", "Végétation": "#1f8a4c" }[f.properties.type]
+      }),
+      onEachFeature: (f, layer) => layer.bindPopup(`<strong>${f.properties.name}</strong><br>${f.properties.type}`)
+    }).addTo(osmMap);
+
+    // --- Couche : Hydrographie (polylines de démonstration) ---
+    const hydroLayer = L.polyline([[48.86, 2.32], [48.85, 2.38], [48.83, 2.42], [48.81, 2.47]],
+      { color: "#38bdf8", weight: 4, opacity: 0.8 }).bindPopup("Cours d'eau principal");
+
+    // --- Couche : Limites administratives ---
+    const limitesLayer = L.rectangle([[48.845, 2.30], [48.87, 2.46]],
+      { color: "#e6edf7", weight: 2, dashArray: "8 6", fill: false }).bindPopup("Emprise du projet");
+
+    // --- Couche : Points d'intérêt (mesures terrain) ---
+    const poiLayer = L.layerGroup([
+      L.marker([48.8584, 2.2945], { title: "Parcelle A" }).bindPopup("<strong>Parcelle A</strong><br>NDVI moyen : 0,72"),
+      L.marker([48.8450, 2.4000], { title: "Parcelle B" }).bindPopup("<strong>Parcelle B</strong><br>NDVI moyen : 0,81"),
+      L.marker([48.8300, 2.4400], { title: "Station terrain" }).bindPopup("<strong>Station terrain</strong><br>Mesures de validation")
+    ]).addTo(osmMap);
+
+    // --- Panneau de gestion des couches (checkboxes reliées à Leaflet) ---
+    const layerMap = {
+      "layer-occupation": occupationLayer,
+      "layer-ndvi": sentinelLayer,
+      "layer-hydro": hydroLayer,
+      "layer-limites": limitesLayer,
+      "layer-poi": poiLayer,
+      "layer-grille": osmBase
+    };
+    document.querySelectorAll('.layer-item input[data-layer]').forEach(cb => {
+      cb.addEventListener("change", () => {
+        const layer = layerMap[cb.dataset.layer];
+        if (!layer) return;
+        if (cb.checked) layer.addTo(osmMap); else osmMap.removeLayer(layer);
+      });
+    });
+    // Case "Grille" = fond OSM (base) : synchronisation inverse
+    const baseCheckbox = document.querySelector('[data-layer="layer-grille"]');
+    baseCheckbox.checked = true;
+    } // fin du bloc Leaflet
+
+    /* =========================================
+       JS — 6. Formulaire de contact (démo)
+    ========================================== */
+    document.getElementById("contactForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      document.getElementById("formMsg").style.display = "block";
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
