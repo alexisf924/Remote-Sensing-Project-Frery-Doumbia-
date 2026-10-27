@@ -1,4 +1,2 @@
-Normalized Difference Vegetation Index ( NDVI)
-Ce dossier regroupe les résultats de l'indice de végétation par différence normalisée (NDVI).
-Le NDVI permet d'évaluer l'état de la végétation à partir de la réflectance dans les bandes rouge et proche infrarouge
-La comparaison des valeurs avant et après l'incendie permet d'étudier les changements de l'activité végétale.
+Normalized Difference Vegetation Index (NDVI) 
+This report compiles the results of the Normalized Difference Vegetation Index (NDVI). The NDVI is used to assess the condition of vegetation based on reflectance in the red and near-infrared bands. Comparing values before and after the fire allows for the study of changes in vegetation activity.
