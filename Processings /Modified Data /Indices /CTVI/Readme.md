@@ -1,1 +1,1 @@
-
+Corrected Transformed Vegetation Index (CTVI) This report compiles the results of the CTVI (Corrected Transformed Vegetation Index). This index is used to characterize variations in vegetation cover. Comparing the results before and after the fire helps analyze the changes observed in the affected area.
