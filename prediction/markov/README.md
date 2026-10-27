@@ -1,5 +1,5 @@
-Ce dossier regroupe les résultats de l'analyse Markov appliquée à l'étude de l'incendie.
+This document compiles the results of the Markov analysis applied to the study of the fire.
 
-Cette méthode permet d'estimer les probabilités de transition entre les classes d'occupation ou d'état du territoire à partir des cartes utilisées pour l'analyse.
+This method allows us to estimate the transition probabilities between land-use or land-cover classes based on the maps used for the analysis.
 
-Les matrices de transition, les probabilités estimées et les résultats associés seront ajoutés ici.
+The transition matrices, estimated probabilities, and associated results will be added here.
