@@ -1,5 +1,1 @@
-Ce dossier regroupe les résultats de la simulation CA-Markov réalisée dans le cadre de l'étude de l'incendie de Gironde en 2026.
-La méthode CA-Markov combine les probabilités de transition estimées par le modèle de Markov avec une approche d'analyse spatiale afin de simuler la répartition potentielle des changements entre les classes.
-il faut noter que les résultats constituent une simulation et non une prédiction certaine.
-La proximité temporelle des images avant et après l'incendie limite notamment la capacité à extrapoler les changements sur plusieurs années.
-La simulation ne garantit donc pas la régénération effective de la végétation.
+This report compiles the results of the CA-Markov simulation conducted as part of the study of the 2026 Gironde fire. The CA-Markov method combines transition probabilities estimated by the Markov model with a spatial analysis approach to simulate the potential distribution of changes between classes. It should be noted that the results constitute a simulation and not a definitive prediction. In particular, the short time span between the pre- and post-fire images limits the ability to extrapolate changes over several years. The simulation therefore does not guarantee the actual regeneration of vegetation.
