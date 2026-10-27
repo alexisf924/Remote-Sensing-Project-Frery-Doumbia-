@@ -1,1 +1,1 @@
-Ce dossier regroupe les résultats de la classification K-means appliquée aux images satellitaires dans le cadre de l'étude de l'incendie.
+This report compiles the results of the K-means clustering method applied to satellite images as part of the fire study.
