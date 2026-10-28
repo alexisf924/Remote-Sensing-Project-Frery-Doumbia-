@@ -1,0 +1,3 @@
+- Color composite before the fire (June 22 , 2026):
+-  NDVI / Near Infrared / Thermal Infrared
+-  CTVI / Near Infrared / Thermal Infrared 
