@@ -1,1 +1,3 @@
 - Modified data contain all the processings in specific  folders :  indices for the indices  (NDVI and CTVI) , Color Composite  for the color composite, Statistical Analysis (Principal Component Analysis (PCA) and Minimum Noise Fraction (MNF)) , Filter of Convolution (Kernel Directionnal Filter) , Machine Learning algorithms of classification and Deep Learning Algorithm of prediction folder for Deep Learning Algorithm of Prediction (Markov Chains and CA-Markov)
+
+- Raw data folder contain the raw sattelite images of Landsat 8-9 OLI TIRS before (June 22 , 2026) and after the fire (August 8 , 2026)
