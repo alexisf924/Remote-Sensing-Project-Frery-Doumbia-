@@ -1,1 +1,0 @@
-- Processings of Kernel directionnal filter 3X3 North South East West (NSEW) after the fire (August 8, 2026)
