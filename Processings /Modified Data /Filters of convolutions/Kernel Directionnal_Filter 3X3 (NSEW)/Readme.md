@@ -1,0 +1,1 @@
+- The Folder "Kernel Directionnal filter 3X3 North South East West (NSEW) contain the processings before (June 22 , 2026) and after the fire (August 8 , 2026).
