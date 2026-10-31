@@ -396,11 +396,10 @@
     Remote Sensing — Project of Wildfire detection of Gironde in 20261
   </div>
 
-  <!-- ===== HEADER PROJET — Matière Remote Sensing ===== -->
+  <!-- ===== HEADER PROJET ===== -->
   <div id="project-header">
     <div class="header-inner">
       <div class="header-logo">
-        <!-- Logo satellite en SVG inline -->
         <svg width="72" height="72" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Icône satellite">
           <circle cx="32" cy="32" r="14" fill="#38bdf8" opacity="0.25"/>
           <rect x="26" y="26" width="12" height="12" rx="2.5" fill="#38bdf8"/>
@@ -411,12 +410,12 @@
       </div>
       <div class="header-text">
         <span class="header-course">Remote Sensing</span>
-        <h1>Detection of a wildfire and prediction of the regeneration of the vegetation using Remote Sensing , Statistical processings, Machine learning and Deep Learning processings</h1>
-        <p class="header-tagline">Projet de fin de module — Observation de la Terre &amp; analyse d'images satellitaires</p>
+        <h1>Detection of a wildfire and prediction of the regeneration of the vegetation using Remote Sensing, Statistical processings, Machine learning and Deep Learning processings</h1>
+        <p class="header-tagline">Projet de fin de module — Observation de la Terre & analyse d'images satellitaires</p>
         <div class="header-meta">
-          <div>Students: <strong> Frery Alexis and  Doumbia Matie </strong></div>
-          <div>Academic year  :<strong>2026 – 2027</strong></div>
-          <div>Course module : <strong>Remote Sensing (HGAAU39)</strong>
+          <div>Students: <strong>Frery Alexis and Doumbia Matie</strong></div>
+          <div>Academic year: <strong>2026 – 2027</strong></div>
+          <div>Course module: <strong>Remote Sensing (HGAAU39)</strong></div>
         </div>
       </div>
     </div>
@@ -456,7 +455,7 @@
     <div class="grid">
       <div class="card">
         <div class="icon">🛰️</div>
-        <h3>Acquisition &amp; prétraitement</h3>
+        <h3>Acquisition & prétraitement</h3>
         <p>Téléchargement de scènes Sentinel-2 (MSI, 10 m), corrections atmosphériques et composition de mosaïques sans nuages.</p>
       </div>
       <div class="card">
@@ -477,7 +476,7 @@
     </div>
   </section>
 
-  <!-- ===== MÉTHODOLOGIE (SCHÉMA DE FLUX) ===== -->
+  <!-- ===== MÉTHODOLOGIE ===== -->
   <section id="methodologie">
     <h2>Methodology</h2>
     <div class="flow">
@@ -485,9 +484,9 @@
         <div class="num">1</div>
         <div>
           <h3>Data</h3>
-          <p>Sattelite images : Landsat 8-9 OLI-TIRS</p>
-          <p>Vector Data : Trace of the Widlfire</p>
-          <span class="tools">Outils : Earth Explorer (USGS)</span>
+          <p>Satellite images: Landsat 8-9 OLI-TIRS</p>
+          <p>Vector Data: Trace of the Wildfire</p>
+          <span class="tools">Outils: Earth Explorer (USGS)</span>
         </div>
       </div>
       <div class="arrow">▼</div>
@@ -496,7 +495,7 @@
         <div class="num">2</div>
         <div>
           <h3>Indices and Ratio</h3>
-          <p> Calculation of indices : Normalized difference Vegetation Index (NDVI) and calculation of ratio : Corrected Transformed Vegetation Index (CTVI)</p>
+          <p>Calculation of indices: Normalized Difference Vegetation Index (NDVI) and calculation of ratio: Corrected Transformed Vegetation Index (CTVI)</p>
         </div>
       </div>
       <div class="arrow">▼</div>
@@ -504,7 +503,7 @@
       <div class="step">
         <div class="num">3</div>
         <div>
-          <h3>Color Composite </h3>
+          <h3>Color Composite</h3>
           <p>Calculation of color composites</p>
         </div>
       </div>
@@ -525,8 +524,9 @@
           <h3>Statistical Analysis (Minimum Noise Fraction)</h3>
           <p>Calculation of Minimum Noise Fraction (MNF)</p>
         </div>
-              <div class="arrow">▼</div>
       </div>
+      <div class="arrow">▼</div>
+
       <div class="step">
         <div class="num">6</div>
         <div>
@@ -538,9 +538,9 @@
     </div>
   </section>
 
-  <!-- ===== DONNÉES / STATS ===== -->
+  <!-- ===== DONNÉES ===== -->
   <section id="donnees">
-    <h2>Données &amp; chiffres clés</h2>
+    <h2>Données & chiffres clés</h2>
     <p class="subtitle">Synthèse du jeu de données utilisé.</p>
     <div class="stats">
       <div class="stat"><div class="value" data-target="120">0</div><div class="label">Scènes Sentinel-2</div></div>
@@ -552,12 +552,12 @@
 
   <!-- ===== VISUALISATION ===== -->
   <section id="visualisation">
-    <h2>Démonstration : indice NDVI</h2>
+    <h2>Démonstration: indice NDVI</h2>
     <p class="subtitle">Simulation interactive — le seuil NDVI détermine la classification pixel par pixel.</p>
     <div class="viz-panel">
       <canvas id="ndviCanvas" width="740" height="320" style="width:100%; height:auto; border-radius:10px; display:block;"></canvas>
       <div class="viz-controls">
-        <label for="ndviSlider">Seuil de classification :</label>
+        <label for="ndviSlider">Seuil de classification:</label>
         <input type="range" id="ndviSlider" min="0" max="100" value="45" />
         <span id="ndviValue">0.45</span>
       </div>
@@ -576,17 +576,44 @@
     <p class="subtitle">Zone d'étude avec couches activables — glissez pour vous déplacer, survolez les éléments pour plus de détails.</p>
     <div class="map-wrap">
       <div id="osmMap" style="height:480px; border-radius:10px; border:1px solid #24334f; z-index:1;"></div>
-
       <div class="map-side">
         <h3>Couches</h3>
-        <label class="layer-item"><input type="checkbox" data-layer="layer-occupation" checked><span class="dot" style="background:#7ec86a;"></span><span class="label">Occupation du sol</span></label>
-        <label class="layer-item"><input type="checkbox" data-layer="layer-ndvi" checked><span class="dot" style="background:#34d399;"></span><span class="label">NDVI (végétation)</span></label>
-        <label class="layer-item"><input type="checkbox" data-layer="layer-hydro" checked><span class="dot" style="background:#38bdf8;"></span><span class="label">Hydrographie</span></label>
-        <label class="layer-item"><input type="checkbox" data-layer="layer-limites"><span class="dot" style="background:#e6edf7;"></span><span class="label">Limites administratives</span></label>
-        <label class="layer-item"><input type="checkbox" data-layer="layer-feu" checked><span class="dot" style="background:#ef4444;"></span><span class="label">Trace du feu</span></label>
-        <label class="layer-item"><input type="checkbox" data-layer="layer-poi" checked><span class="dot" style="background:#f4c542;"></span><span class="label">Points d'intérêt</span></label>
-        <label class="layer-item"><input type="checkbox" data-layer="layer-grille" checked><span class="dot" style="background:#93a4bf;"></span><span class="label">Fond OpenStreetMap</span></label>
-        <p class="hint">💡 Carte Leaflet avec fond OpenStreetMap, chargé en local ou en ligne. Couche « NDVI » : emplacement réservé pour brancher vos tuiles Sentinel-2 (Sentinel Hub).</p>
+        <label class="layer-item">
+          <input type="checkbox" data-layer="layer-occupation" checked />
+          <span class="dot" style="background:#7ec86a;"></span>
+          <span class="label">Occupation du sol</span>
+        </label>
+        <label class="layer-item">
+          <input type="checkbox" data-layer="layer-ndvi" checked />
+          <span class="dot" style="background:#34d399;"></span>
+          <span class="label">NDVI (végétation)</span>
+        </label>
+        <label class="layer-item">
+          <input type="checkbox" data-layer="layer-hydro" checked />
+          <span class="dot" style="background:#38bdf8;"></span>
+          <span class="label">Hydrographie</span>
+        </label>
+        <label class="layer-item">
+          <input type="checkbox" data-layer="layer-limites" />
+          <span class="dot" style="background:#e6edf7;"></span>
+          <span class="label">Limites administratives</span>
+        </label>
+        <label class="layer-item">
+          <input type="checkbox" data-layer="layer-feu" checked />
+          <span class="dot" style="background:#ef4444;"></span>
+          <span class="label">Trace du feu</span>
+        </label>
+        <label class="layer-item">
+          <input type="checkbox" data-layer="layer-poi" checked />
+          <span class="dot" style="background:#f4c542;"></span>
+          <span class="label">Points d'intérêt</span>
+        </label>
+        <label class="layer-item">
+          <input type="checkbox" data-layer="layer-grille" checked />
+          <span class="dot" style="background:#93a4bf;"></span>
+          <span class="label">Fond OpenStreetMap</span>
+        </label>
+        <p class="hint">💡 Carte Leaflet avec fond OpenStreetMap. Couche « NDVI »: emplacement réservé pour vos tuiles Sentinel-2.</p>
       </div>
     </div>
   </section>
@@ -594,27 +621,59 @@
   <!-- ===== MODÉLISATION CA-MARKOV ===== -->
   <section id="modelisation">
     <h2>Modélisation CA-Markov des changements futurs</h2>
-    <p class="subtitle">Projection de l'occupation du sol par automate cellulaire couplé à une chaîne de Markov (IDRISI / GRASS) — sélectionnez un horizon temporel.</p>
+    <p class="subtitle">Projection de l'occupation du sol par automate cellulaire couplé à une chaîne de Markov (IDRISI / GRASS).</p>
     <div class="model-wrap">
       <div id="markovMap"></div>
       <div class="model-side">
         <h3>Part des classes à l'horizon <span id="markovYearLabel">10 ans</span></h3>
         <div class="model-year" id="markovYear"></div>
-        <div class="scenario-bar"><div class="bar-head"><span>🟩 Végétation</span><span id="pctVeg">–</span></div><div class="bar-track"><div class="bar-fill" id="barVeg" style="background:#1f8a4c;"></div></div></div>
-        <div class="scenario-bar"><div class="bar-head"><span>🟨 Agriculture</span><span id="pctAgri">–</span></div><div class="bar-track"><div class="bar-fill" id="barAgri" style="background:#f4c542;"></div></div></div>
-        <div class="scenario-bar"><div class="bar-head"><span>🟥 Urbain</span><span id="pctUrb">–</span></div><div class="bar-track"><div class="bar-fill" id="barUrb" style="background:#55616f;"></div></div></div>
-        <div class="scenario-bar"><div class="bar-head"><span>🟦 Eau</span><span id="pctEau">–</span></div><div class="bar-track"><div class="bar-fill" id="barEau" style="background:#1e5aa8;"></div></div></div>
-        <p class="model-note">ℹ️ Simulation de démonstration : les tendances reproduisent une transition type (artificialisation progressive des terres agricoles). Les cartes réelles proviennent des matrices de transition Markov et des règles d'adéquation des automates cellulaires.</p>
+        <div class="scenario-bar">
+          <div class="bar-head">
+            <span>🟩 Végétation</span>
+            <span id="pctVeg">–</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" id="barVeg" style="background:#1f8a4c;"></div>
+          </div>
+        </div>
+        <div class="scenario-bar">
+          <div class="bar-head">
+            <span>🟨 Agriculture</span>
+            <span id="pctAgri">–</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" id="barAgri" style="background:#f4c542;"></div>
+          </div>
+        </div>
+        <div class="scenario-bar">
+          <div class="bar-head">
+            <span>🟥 Urbain</span>
+            <span id="pctUrb">–</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" id="barUrb" style="background:#55616f;"></div>
+          </div>
+        </div>
+        <div class="scenario-bar">
+          <div class="bar-head">
+            <span>🟦 Eau</span>
+            <span id="pctEau">–</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" id="barEau" style="background:#1e5aa8;"></div>
+          </div>
+        </div>
+        <p class="model-note">ℹ️ Simulation de démonstration: tendances reproduites par une chaîne de Markov.</p>
       </div>
     </div>
     <div class="timeline">
       <select id="markovSelect" aria-label="Sélection de l'horizon de projection">
-        <option value="10">Projection : +10 ans (2036)</option>
-        <option value="20">Projection : +20 ans (2046)</option>
-        <option value="30">Projection : +30 ans (2056)</option>
-        <option value="40">Projection : +40 ans (2066)</option>
-        <option value="60">Projection : +60 ans (2086)</option>
-        <option value="100">Projection : +100 ans (2126)</option>
+        <option value="10">Projection: +10 ans (2036)</option>
+        <option value="20">Projection: +20 ans (2046)</option>
+        <option value="30">Projection: +30 ans (2056)</option>
+        <option value="40">Projection: +40 ans (2066)</option>
+        <option value="60">Projection: +60 ans (2086)</option>
+        <option value="100">Projection: +100 ans (2126)</option>
       </select>
       <button class="play" id="markovPlay">▶ Lecture</button>
       <input type="range" id="markovSlider" min="0" max="5" step="1" value="0" />
@@ -629,28 +688,27 @@
     </div>
   </section>
 
-  <!-- ===== TIMELAPSE CA-MARKOV ===== -->
+  <!-- ===== TIMELAPSE ===== -->
   <section id="timelapse">
     <h2>Timelapse des projections CA-Markov</h2>
-    <p class="subtitle">Défilement animé des cartes projetées de +10 ans à +100 ans. Un emplacement d'image est prévu pour chaque horizon : remplacez les sources <code>src</code> par vos exports (PNG issus d'IDRISI, QGIS…).</p>
+    <p class="subtitle">Défilement animé des cartes projetées de +10 ans à +100 ans.</p>
     <div class="timelapse-panel">
       <div class="tl-frame" id="tlFrame">
         <div class="tl-badge" id="tlBadge">+10 ans (2036)</div>
         <div class="tl-progress" id="tlProgress"></div>
-        <!-- Fond OSM + une image CA-Markov par horizon -->
         <div id="tlMap"></div>
         <div class="tl-map-placeholder" id="tlPlaceholder">
           <span class="icon" style="font-size:2rem; display:block; margin-bottom:0.4rem;">🗺️</span>
-          <strong id="tlPlaceholderText">Emplacement image : projection +10 ans</strong><br>
-          Le fond OpenStreetMap se charge en local ou en ligne ;<br>
-          renseignez l'URL de votre carte exportée dans <code>TL_IMAGES</code> pour chaque horizon.
+          <strong id="tlPlaceholderText">Emplacement image: projection +10 ans</strong><br />
+          Renseignez l'URL de votre carte exportée.
         </div>
       </div>
       <div class="tl-controls">
         <button id="tlPrev">⏮ Précédent</button>
         <button id="tlPlayPause" class="play">▶ Lecture</button>
         <button id="tlNext">Suivant ⏭</button>
-        <label style="color:var(--muted); font-size:0.85rem;">Vitesse
+        <label style="color:var(--muted); font-size:0.85rem;">
+          Vitesse
           <input type="range" id="tlSpeed" min="400" max="3000" step="200" value="1500" style="width:120px; vertical-align:middle;" />
         </label>
       </div>
@@ -668,7 +726,7 @@
   <!-- ===== CONTACT ===== -->
   <section id="contact">
     <h2>Contact</h2>
-    <p class="subtitle">Une question sur le projet ou une envie de collaborer ?</p>
+    <p class="subtitle">Une question sur le projet ou une envie de collaborer?</p>
     <form id="contactForm">
       <div>
         <label for="name">Nom</label>
@@ -683,28 +741,28 @@
         <textarea id="message" rows="4" required placeholder="Votre message…"></textarea>
       </div>
       <button type="submit">Envoyer</button>
-      <p class="form-msg" id="formMsg">✅ Merci ! Votre message a bien été pris en compte.</p>
+      <p class="form-msg" id="formMsg">✅ Merci! Votre message a bien été pris en compte.</p>
     </form>
   </section>
 
   <footer>
-    © 2026 GeoSense — Projet de télédétection | Données : Copernicus Sentinel-2 (ESA)
+    © 2026 GeoSense — Projet de télédétection | Données: Copernicus Sentinel-2 (ESA)
   </footer>
 
+  <!-- Leaflet JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
   <script>
-    /* =========================================
-       JS — 0. Garde-fou : Leaflet indisponible (aperçu sandboxé sans réseau)
-    ========================================== */
+    // ===== 0. Fallback si Leaflet n'est pas chargé =====
     if (typeof L === "undefined") {
       document.getElementById("osmMap").innerHTML =
-        '<div style="height:100%; display:flex; align-items:center; justify-content:center; text-align:center; color:#93a4bf; font-size:0.9rem; padding:1.5rem;">' +
-        '🗺️ Carte Leaflet / OpenStreetMap : le fond se charge en local ou en ligne (l\'aperçu sandboxé bloque les ressources externes).</div>';
+        '<div style="height:100%; display:flex; align-items:center; justify-content:center; text-align:center; color:#93a4bf; font-size:0.9rem; padding:1.5rem;">🗺️ Carte Leaflet: le fond se charge en local ou en ligne.</div>';
+      document.getElementById("markovMap").innerHTML =
+        '<div style="height:100%; display:flex; align-items:center; justify-content:center; text-align:center; color:#93a4bf; font-size:0.9rem; padding:1.5rem;">📈 Carte CA-Markov: projections 10 → 100 ans.</div>';
+      document.getElementById("tlMap").style.display = "none";
     }
 
-    /* =========================================
-       JS — 1. Menu mobile
-    ========================================== */
+    // ===== 1. Menu mobile =====
     const burger = document.getElementById("burger");
     const navLinks = document.getElementById("navLinks");
     burger.addEventListener("click", () => navLinks.classList.toggle("open"));
@@ -712,9 +770,7 @@
       a.addEventListener("click", () => navLinks.classList.remove("open"))
     );
 
-    /* =========================================
-       JS — 2. Lien actif selon la section visible
-    ========================================== */
+    // ===== 2. Navigation active =====
     const sections = document.querySelectorAll("section");
     const navAnchors = document.querySelectorAll(".nav-links a");
     window.addEventListener("scroll", () => {
@@ -727,9 +783,7 @@
       );
     });
 
-    /* =========================================
-       JS — 3. Compteurs animés (statistiques)
-    ========================================== */
+    // ===== 3. Compteurs animés =====
     function animateCounters() {
       document.querySelectorAll(".stat .value").forEach(el => {
         const target = +el.dataset.target;
@@ -745,14 +799,20 @@
       });
     }
     const statsSection = document.getElementById("donnees");
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { animateCounters(); observer.disconnect(); } });
-    }, { threshold: 0.3 });
-    observer.observe(statsSection);
+    const statsObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            animateCounters();
+            statsObserver.disconnect();
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+    statsObserver.observe(statsSection);
 
-    /* =========================================
-       JS — 4. Visualisation NDVI simulée
-    ========================================== */
+    // ===== 4. Visualisation NDVI =====
     const canvas = document.getElementById("ndviCanvas");
     const ctx = canvas.getContext("2d");
     const slider = document.getElementById("ndviSlider");
@@ -773,345 +833,6 @@
       return [31, 138, 76];
     }
 
-    function draw() {
+    function drawNDVI() {
       const threshold = slider.value / 100;
-      valueLabel.textContent = threshold.toFixed(2);
-      const img = ctx.createImageData(canvas.width, canvas.height);
-      for (let y = 0; y < canvas.height; y++) {
-        for (let x = 0; x < canvas.width; x++) {
-          const v = ndviAt(x, y);
-          const [r, g, b] = classify(v, threshold);
-          const i = (y * canvas.width + x) * 4;
-          img.data[i] = r; img.data[i + 1] = g; img.data[i + 2] = b; img.data[i + 3] = 255;
-        }
-      }
-      ctx.putImageData(img, 0, 0);
-    }
-    slider.addEventListener("input", draw);
-    draw();
-
-    /* =========================================
-       JS — 5. Carte interactive Leaflet (fond OSM)
-    ========================================== */
-    let osmMap = null;
-    if (typeof L !== "undefined") {
-    osmMap = L.map("osmMap").setView([48.8566, 2.3522], 12);
-
-    const osmBase = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-    }).addTo(osmMap);
-
-    const sentinelLayer = L.tileLayer("https://services.sentinel-hub.com/ogc/wms/{your-instance-id}", {
-      layers: "FALSE_COLOR", maxZoom: 19, opacity: 0.7
-    });
-
-    const occupationLayer = L.geoJSON({
-      type: "FeatureCollection",
-      features: [
-        { type: "Feature", properties: { name: "Zone agricole", type: "Agriculture" },
-          geometry: { type: "Polygon", coordinates: [[[2.30, 48.87], [2.40, 48.87], [2.40, 48.83], [2.30, 48.83], [2.30, 48.87]]] } },
-        { type: "Feature", properties: { name: "Zone urbaine", type: "Urbain" },
-          geometry: { type: "Polygon", coordinates: [[[2.32, 48.86], [2.37, 48.86], [2.37, 48.84], [2.32, 48.84], [2.32, 48.86]]] } },
-        { type: "Feature", properties: { name: "Espace vert", type: "Végétation" },
-          geometry: { type: "Polygon", coordinates: [[[2.40, 48.86], [2.46, 48.86], [2.46, 48.82], [2.40, 48.82], [2.40, 48.86]]] } }
-      ]
-    }, {
-      style: f => ({
-        color: "#38bdf8", weight: 2, fillOpacity: 0.25,
-        fillColor: { "Agriculture": "#f4c542", "Urbain": "#55616f", "Végétation": "#1f8a4c" }[f.properties.type]
-      }),
-      onEachFeature: (f, layer) => layer.bindPopup(`<strong>${f.properties.name}</strong><br>${f.properties.type}`)
-    }).addTo(osmMap);
-
-    const hydroLayer = L.polyline([[48.86, 2.32], [48.85, 2.38], [48.83, 2.42], [48.81, 2.47]], {
-      color: "#38bdf8", weight: 4, opacity: 0.8
-    }).bindPopup("Cours d'eau principal");
-
-    const limitesLayer = L.rectangle([[48.845, 2.30], [48.87, 2.46]], {
-      color: "#e6edf7", weight: 2, dashArray: "8 6", fill: false
-    }).bindPopup("Emprise du projet");
-
-    const FIRE_GEOJSON = {
-      type: "FeatureCollection",
-      features: [{
-        type: "Feature",
-        properties: {
-          name: "Trace du feu — secteur étudié",
-          date: "2026-07-14",
-          surface_ha: 385,
-          cause: "Simulée (à remplacer par les données réelles)"
-        },
-        geometry: {
-          type: "Polygon",
-          coordinates: [[[2.35, 48.86], [2.41, 48.855], [2.44, 48.83], [2.42, 48.79], [2.36, 48.795], [2.33, 48.82], [2.325, 48.85], [2.35, 48.86]]]
-        }
-      }]
-    };
-
-    const feuLayer = L.geoJSON(FIRE_GEOJSON, {
-      style: {
-        color: "#ef4444", weight: 3, fillOpacity: 0.3,
-        fillColor: "#ef4444", dashArray: "6 4"
-      },
-      onEachFeature: (f, layer) => layer.bindPopup(
-        `<strong>🔥 ${f.properties.name}</strong><br>` +
-        `Date : ${f.properties.date}<br>Surface estimée : ${f.properties.surface_ha} ha<br>` +
-        `<em>${f.properties.cause}</em>`
-      )
-    }).addTo(osmMap);
-
-    const poiLayer = L.layerGroup([
-      L.marker([48.8584, 2.2945]).bindPopup("<strong>Parcelle A</strong><br>NDVI moyen : 0,72"),
-      L.marker([48.8450, 2.4000]).bindPopup("<strong>Parcelle B</strong><br>NDVI moyen : 0,81"),
-      L.marker([48.8300, 2.4400]).bindPopup("<strong>Station terrain</strong><br>Mesures de validation")
-    ]).addTo(osmMap);
-
-    const layerMap = {
-      "layer-occupation": occupationLayer,
-      "layer-ndvi": sentinelLayer,
-      "layer-hydro": hydroLayer,
-      "layer-limites": limitesLayer,
-      "layer-feu": feuLayer,
-      "layer-poi": poiLayer,
-      "layer-grille": osmBase
-    };
-    document.querySelectorAll('.layer-item input[data-layer]').forEach(cb => {
-      cb.addEventListener("change", () => {
-        const layer = layerMap[cb.dataset.layer];
-        if (!layer) return;
-        if (cb.checked) layer.addTo(osmMap); else osmMap.removeLayer(layer);
-      });
-    });
-    } // fin du bloc Leaflet
-
-    /* =========================================
-       JS — 6. Modélisation CA-Markov (horizons 10 → 100 ans)
-    ========================================== */
-    const HORIZONS = [10, 20, 30, 40, 60, 100];
-
-    const MARKOV_STATS = {
-      10:  { veg: 38, agri: 32, urb: 20, eau: 10 },
-      20:  { veg: 35, agri: 29, urb: 26, eau: 10 },
-      30:  { veg: 32, agri: 26, urb: 32, eau: 10 },
-      40:  { veg: 29, agri: 23, urb: 38, eau: 10 },
-      60:  { veg: 24, agri: 18, urb: 48, eau: 10 },
-      100: { veg: 17, agri: 12, urb: 61, eau: 10 }
-    };
-
-    const MARKOV_ZONES = [
-      { coords: [[2.30, 48.87], [2.46, 48.87], [2.46, 48.82], [2.30, 48.82]], from: "agri", to: "urb", switchYear: 30 },
-      { coords: [[2.40, 48.86], [2.50, 48.86], [2.50, 48.81], [2.40, 48.81]], from: "veg",  to: "agri", switchYear: 40 },
-      { coords: [[2.30, 48.82], [2.42, 48.82], [2.42, 48.77], [2.30, 48.77]], from: "agri", to: "urb", switchYear: 20 },
-      { coords: [[2.42, 48.82], [2.55, 48.82], [2.55, 48.77], [2.42, 48.77]], from: "veg",  to: "urb", switchYear: 60 },
-      { coords: [[2.46, 48.87], [2.58, 48.87], [2.58, 48.83], [2.46, 48.83]], from: "veg",  to: "agri", switchYear: 60 },
-      { coords: [[2.30, 48.77], [2.44, 48.77], [2.44, 48.73], [2.30, 48.73]], from: "agri", to: "urb", switchYear: 40 }
-    ];
-    const CLASS_COLORS = { veg: "#1f8a4c", agri: "#f4c542", urb: "#55616f", eau: "#1e5aa8" };
-    const CLASS_NAMES  = { veg: "Végétation", agri: "Agriculture", urb: "Urbain", eau: "Eau" };
-
-    const markovSlider = document.getElementById("markovSlider");
-    const markovPlay = document.getElementById("markovPlay");
-    let markovMap = null, markovLayers = {}, playTimer = null;
-
-    if (typeof L !== "undefined") {
-      markovMap = L.map("markovMap").setView([48.82, 2.42], 12);
-      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(markovMap);
-
-      const feuMarkovLayer = L.geoJSON(FIRE_GEOJSON, {
-        style: { color: "#ef4444", weight: 3, fillOpacity: 0.35, fillColor: "#ef4444", dashArray: "6 4" },
-        onEachFeature: (f, layer) => layer.bindPopup(
-          `<strong>🔥 ${f.properties.name}</strong><br>` +
-          `Surface estimée : ${f.properties.surface_ha} ha<br>` +
-          "La modélisation CA-Markov projette la recolonisation végétale de cette emprise."
-        )
-      }).addTo(markovMap);
-
-      function getLayer(years) {
-        if (!markovLayers[years]) {
-          markovLayers[years] = L.layerGroup(
-            MARKOV_ZONES.map(z => {
-              const cls = years >= z.switchYear ? z.to : z.from;
-              return L.polygon(z.coords, {
-                color: "#0b1220", weight: 1.5,
-                fillColor: CLASS_COLORS[cls], fillOpacity: 0.65
-              }).bindPopup(
-                `<strong>${CLASS_NAMES[cls]}</strong><br>Horizon : +${years} ans<br>` +
-                (cls !== z.from ? `Transition CA-Markov : ${CLASS_NAMES[z.from]} → ${CLASS_NAMES[z.to]}` : "Classe stable sur l'horizon")
-              );
-            })
-          );
-        }
-        return markovLayers[years];
-      }
-
-      function showHorizon(years) {
-        Object.values(markovLayers).forEach(l => markovMap.removeLayer(l));
-        getLayer(years).addTo(markovMap);
-        const s = MARKOV_STATS[years];
-        document.getElementById("markovYear").textContent = `Année projetée : ${2026 + years}`;
-        document.getElementById("markovYearLabel").textContent = `+${years} ans`;
-        document.getElementById("pctVeg").textContent = s.veg + " %";
-        document.getElementById("pctAgri").textContent = s.agri + " %";
-        document.getElementById("pctUrb").textContent = s.urb + " %";
-        document.getElementById("pctEau").textContent = s.eau + " %";
-        document.getElementById("barVeg").style.width = s.veg + "%";
-        document.getElementById("barAgri").style.width = s.agri + "%";
-        document.getElementById("barUrb").style.width = s.urb + "%";
-        document.getElementById("barEau").style.width = s.eau + "%";
-        markovSlider.value = HORIZONS.indexOf(years);
-        markovSelect.value = String(years);
-        document.querySelectorAll('.timeline .years button').forEach(b =>
-          b.classList.toggle("active", +b.dataset.years === years)
-        );
-      }
-
-      const markovSelect = document.getElementById("markovSelect");
-      markovSlider.addEventListener("input", () => showHorizon(HORIZONS[+markovSlider.value]));
-      markovSelect.addEventListener("change", () => showHorizon(+markovSelect.value));
-      document.querySelectorAll('.timeline .years button').forEach(b =>
-        b.addEventListener("click", () => showHorizon(+b.dataset.years))
-      );
-      markovPlay.addEventListener("click", () => {
-        if (playTimer) { clearInterval(playTimer); playTimer = null; markovPlay.textContent = "▶ Lecture"; return; }
-        markovPlay.textContent = "⏸ Pause";
-        let i = 0;
-        playTimer = setInterval(() => {
-          showHorizon(HORIZONS[i % HORIZONS.length]);
-          i++;
-        }, 1600);
-        showHorizon(HORIZONS[0]);
-      });
-
-      showHorizon(10);
-      window._markovShowHorizon = showHorizon;
-    } else {
-      document.getElementById("markovMap").innerHTML =
-        '<div style="height:100%; display:flex; align-items:center; justify-content:center; text-align:center; color:#93a4bf; font-size:0.9rem; padding:1.5rem;">' +
-        '📈 Carte CA-Markov : les projections 10 → 100 ans s\'affichent en local ou en ligne.</div>';
-    }
-
-    /* =========================================
-       JS — 7. Apparition au scroll (toute la page)
-    ========================================== */
-    document.querySelectorAll("section, .card, .step, .stat, .model-side .scenario-bar").forEach(el => el.classList.add("reveal"));
-    document.querySelectorAll(".grid .card, .stats .stat").forEach(el => {
-      const i = [...el.parentElement.children].indexOf(el);
-      el.classList.add("delay-" + ((i % 3) + 1));
-    });
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); revealObserver.unobserve(e.target); } });
-    }, { threshold: 0.12 });
-    document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
-
-    /* =========================================
-       JS — 8. Recalcul des cartes & sections au redimensionnement
-    ========================================== */
-    let resizeTimer = null;
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        if (typeof L !== "undefined" && osmMap) osmMap.invalidateSize();
-        if (typeof L !== "undefined" && markovMap) markovMap.invalidateSize();
-        if (typeof L !== "undefined" && tlMap) tlMap.invalidateSize();
-      }, 200);
-    });
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && navLinks.classList.contains("open")) navLinks.classList.remove("open");
-    });
-
-    /* =========================================
-       JS — 9. Timelapse CA-Markov (10 → 100 ans) sur fond OSM
-    ========================================== */
-    const tlThumbs = [...document.querySelectorAll(".tl-thumb")];
-    const tlBadge = document.getElementById("tlBadge");
-    const tlPlaceholder = document.getElementById("tlPlaceholder");
-    const tlPlaceholderText = document.getElementById("tlPlaceholderText");
-    const tlProgress = document.getElementById("tlProgress");
-    const tlPlayPause = document.getElementById("tlPlayPause");
-    const tlSpeed = document.getElementById("tlSpeed");
-
-    const TL_IMAGES = [
-      { years: 10,  url:null, bounds: [[48.77, 2.30], [48.87, 2.50]] },
-      { years: 20,  url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] },
-      { years: 30,  url: "C:/Users/alexi/Documents/LC09_L1TP_200029_20260807_20260807_02_T1_LP/CA_Markov_30.rst", bounds: [[48.77, 2.30], [48.87, 2.50]] },
-      { years: 40,  url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] },
-      { years: 60,  url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] },
-      { years: 100, url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] }
-    ];
-
-    let tlIndex = 0, tlTimer = null, tlStepStart = null;
-    let tlMap = null, tlOverlays = [];
-
-    if (typeof L !== "undefined") {
-      tlMap = L.map("tlMap", { attributionControl: true }).setView([48.82, 2.42], 12);
-      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(tlMap);
-      tlOverlays = TL_IMAGES.map(t =>
-        t.url ? L.imageOverlay(t.url, t.bounds, { opacity: 0.85 }) : null
-      );
-    } else {
-      document.getElementById("tlMap").style.display = "none";
-    }
-
-    function tlShow(i) {
-      tlIndex = (i + TL_IMAGES.length) % TL_IMAGES.length;
-      const cur = TL_IMAGES[tlIndex];
-      tlThumbs.forEach((t, k) => t.classList.toggle("active", k === tlIndex));
-      tlBadge.textContent = `+${cur.years} ans (${2026 + cur.years})`;
-      tlProgress.style.width = ((tlIndex + 1) / TL_IMAGES.length * 100) + "%";
-      if (tlMap) {
-        tlOverlays.forEach((o, k) => {
-          if (!o) return;
-          if (k === tlIndex) o.addTo(tlMap); else tlMap.removeLayer(o);
-        });
-        tlPlaceholder.style.display = cur.url ? "none" : "";
-      }
-      tlPlaceholderText.textContent = `Emplacement image : projection +${cur.years} ans`;
-      if (typeof L !== "undefined" && window._markovShowHorizon) window._markovShowHorizon(cur.years);
-    }
-
-    function tlTick(ts) {
-      if (tlStepStart === null) tlStepStart = ts;
-      const speed = +tlSpeed.value;
-      if (ts - tlStepStart >= speed) { tlStepStart = ts; tlShow(tlIndex + 1); }
-      if (tlTimer !== null) requestAnimationFrame(tlTick);
-    }
-
-    function tlPlay() {
-      tlTimer = requestAnimationFrame(tlTick);
-      tlPlayPause.textContent = "⏸ Pause";
-    }
-    function tlPause() {
-      if (tlTimer !== null) cancelAnimationFrame(tlTimer);
-      tlTimer = null; tlStepStart = null;
-      tlPlayPause.textContent = "▶ Lecture";
-    }
-
-    tlPlayPause.addEventListener("click", () => tlTimer === null ? tlPlay() : tlPause());
-    document.getElementById("tlPrev").addEventListener("click", () => tlShow(tlIndex - 1));
-    document.getElementById("tlNext").addEventListener("click", () => tlShow(tlIndex + 1));
-    tlThumbs.forEach((t, k) => t.addEventListener("click", () => { tlPause(); tlShow(k); }));
-    tlSpeed.addEventListener("input", () => { tlStepStart = null; });
-
-    tlShow(0);
-
-    /* =========================================
-       JS — 10. Formulaire de contact (démo)
-    ========================================== */
-    document.getElementById("contactForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      document.getElementById("formMsg").style.display = "block";
-      e.target.reset();
-    });
-  </script>
-</body>
-</html>
-  </script>
-</body>
-</html>
+      value
