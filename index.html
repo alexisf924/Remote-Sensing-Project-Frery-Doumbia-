@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Remote Sensing — Project of Wildfire detection of Gironde in 20261</title>
-  <!-- Leaflet (fond de carte OpenStreetMap) — chargé en local/production ; l'aperçu sandboxé bloque les CDN -->
+  <!-- Leaflet (fond de carte OpenStreetMap) -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
     /* ===== Variables & reset ===== */
@@ -23,6 +23,28 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
     body { background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* ===== HEADER VERT COULISSANT ===== */
+    #sliding-header {
+      background: linear-gradient(135deg, #2d5a3d 0%, #4a7c59 100%);
+      color: #f5f5dc;
+      text-align: center;
+      padding: 1.8rem 1rem;
+      font-size: clamp(1.6rem, 4.5vw, 2.8rem);
+      font-weight: 700;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.4);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+      animation: slideDown 1.4s cubic-bezier(0.16, 0.84, 0.44, 1);
+      position: relative;
+      z-index: 100;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid rgba(245, 245, 220, 0.3);
+    }
+
+    @keyframes slideDown {
+      0% { transform: translateY(-120%); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
 
     /* ===== Header projet (matière Remote Sensing) ===== */
     #project-header {
@@ -139,32 +161,6 @@
       background: var(--card); border: 1px solid var(--border);
       border-radius: var(--radius); padding: 1rem;
     }
-    .map-frame {
-      position: relative; overflow: hidden;
-      border-radius: 10px; border: 1px solid var(--border);
-      background: #0d1626; cursor: grab;
-    }
-    .map-frame.dragging { cursor: grabbing; }
-    .map-frame svg { display: block; width: 100%; height: auto; }
-    .map-tooltip {
-      position: absolute; pointer-events: none;
-      background: rgba(11, 18, 32, 0.95); border: 1px solid var(--accent);
-      color: var(--text); font-size: 0.78rem;
-      padding: 0.35rem 0.6rem; border-radius: 8px;
-      transform: translate(-50%, -130%); white-space: nowrap;
-      opacity: 0; transition: opacity 0.15s;
-    }
-    .map-tooltip.show { opacity: 1; }
-    .map-zoom {
-      position: absolute; top: 0.6rem; left: 0.6rem;
-      display: flex; flex-direction: column; gap: 0.3rem;
-    }
-    .map-zoom button {
-      width: 30px; height: 30px; border-radius: 8px;
-      border: 1px solid var(--border); background: rgba(17, 28, 48, 0.9);
-      color: var(--text); font-size: 1rem; cursor: pointer;
-    }
-    .map-zoom button:hover { border-color: var(--accent); color: var(--accent); }
     .map-side h3 { font-size: 1rem; margin-bottom: 0.8rem; }
     .layer-item {
       display: flex; align-items: center; gap: 0.6rem;
@@ -348,11 +344,6 @@
       0%, 100% { transform: translateY(0); opacity: 0.7; }
       50% { transform: translateY(4px); opacity: 1; }
     }
-    @media (max-width: 720px) {
-      .step { flex-direction: column; text-align: center; align-items: center; }
-      .step:hover { transform: none; }
-      .step .tools { display: none; }
-    }
 
     /* ===== Animations d'apparition (scroll reveal) ===== */
     .reveal {
@@ -390,9 +381,6 @@
       .timeline { padding: 0.9rem; gap: 0.7rem; }
       .timeline select { width: 100%; }
       .timeline input[type="range"] { min-width: 150px; }
-      .step { flex-direction: column; text-align: center; align-items: center; }
-      .step:hover { transform: none; }
-      .step .tools { display: none; }
     }
     @media (max-width: 420px) {
       .header-meta { flex-direction: column; gap: 0.25rem; }
@@ -402,6 +390,11 @@
   </style>
 </head>
 <body>
+
+  <!-- ===== HEADER VERT COULISSANT ===== -->
+  <div id="sliding-header">
+    Remote Sensing — Project of Wildfire detection of Gironde in 20261
+  </div>
 
   <!-- ===== HEADER PROJET — Matière Remote Sensing ===== -->
   <div id="project-header">
@@ -533,8 +526,8 @@
           <p>Calculation of Minimum Noise Fraction (MNF)</p>
         </div>
       </div>
-       <div class="step">
-      <div class="num">6</div>
+      <div class="step">
+        <div class="num">6</div>
         <div>
           <h3>Classification</h3>
           <p>Calculation of a clustering</p>
@@ -643,7 +636,7 @@
       <div class="tl-frame" id="tlFrame">
         <div class="tl-badge" id="tlBadge">+10 ans (2036)</div>
         <div class="tl-progress" id="tlProgress"></div>
-        <!-- Fond OSM + une image CA-Markov par horizon (voir TL_IMAGES dans le script) -->
+        <!-- Fond OSM + une image CA-Markov par horizon -->
         <div id="tlMap"></div>
         <div class="tl-map-placeholder" id="tlPlaceholder">
           <span class="icon" style="font-size:2rem; display:block; margin-bottom:0.4rem;">🗺️</span>
@@ -764,20 +757,19 @@
     const slider = document.getElementById("ndviSlider");
     const valueLabel = document.getElementById("ndviValue");
 
-    // Génère un "champ NDVI" synthétique et reproductible (sans dépendance externe)
     function ndviAt(x, y) {
       const s = Math.sin(x * 0.045) * Math.cos(y * 0.035);
-      const blob = Math.exp(-((x - 180) ** 2 + (y - 160) ** 2) / 9000);   // zone dense
-      const water = Math.exp(-((x - 600) ** 2 + (y - 250) ** 2) / 4000); // plan d'eau
+      const blob = Math.exp(-((x - 180) ** 2 + (y - 160) ** 2) / 9000);
+      const water = Math.exp(-((x - 600) ** 2 + (y - 250) ** 2) / 4000);
       let v = 0.35 + 0.25 * s + 0.35 * blob - 0.9 * water;
       return Math.max(-1, Math.min(1, v));
     }
 
     function classify(v, threshold) {
-      if (v < 0) return [30, 90, 168];                 // eau
-      if (v < threshold * 0.6) return [244, 197, 66];  // sol nu
-      if (v < threshold) return [126, 200, 106];       // végétation clairsemée
-      return [31, 138, 76];                            // végétation dense
+      if (v < 0) return [30, 90, 168];
+      if (v < threshold * 0.6) return [244, 197, 66];
+      if (v < threshold) return [126, 200, 106];
+      return [31, 138, 76];
     }
 
     function draw() {
@@ -799,25 +791,20 @@
 
     /* =========================================
        JS — 5. Carte interactive Leaflet (fond OSM)
-       NB : le sandbox d'aperçu bloque les CDN ;
-       la carte s'affiche pleinement en local ou en ligne.
     ========================================== */
-    let osmMap = null; // accessible à tous les blocs (redimensionnement, etc.)
-    if (typeof L !== "undefined") { // ignoré si Leaflet n'a pas pu se charger
-    osmMap = L.map("osmMap").setView([48.8566, 2.3522], 12); // Paris — à remplacer par votre zone d'étude
+    let osmMap = null;
+    if (typeof L !== "undefined") {
+    osmMap = L.map("osmMap").setView([48.8566, 2.3522], 12);
 
-    // --- Fond OpenStreetMap partagé par toutes les cartes ---
     const osmBase = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(osmMap);
 
-    // --- Couche : images Sentinel-2 (chaîne de tuiles à brancher sur vos données) ---
     const sentinelLayer = L.tileLayer("https://services.sentinel-hub.com/ogc/wms/{your-instance-id}", {
       layers: "FALSE_COLOR", maxZoom: 19, opacity: 0.7
     });
 
-    // --- Couche : Occupation du sol (polygones GeoJSON de démonstration) ---
     const occupationLayer = L.geoJSON({
       type: "FeatureCollection",
       features: [
@@ -836,16 +823,14 @@
       onEachFeature: (f, layer) => layer.bindPopup(`<strong>${f.properties.name}</strong><br>${f.properties.type}`)
     }).addTo(osmMap);
 
-    // --- Couche : Hydrographie (polylines de démonstration) ---
-    const hydroLayer = L.polyline([[48.86, 2.32], [48.85, 2.38], [48.83, 2.42], [48.81, 2.47]],
-      { color: "#38bdf8", weight: 4, opacity: 0.8 }).bindPopup("Cours d'eau principal");
+    const hydroLayer = L.polyline([[48.86, 2.32], [48.85, 2.38], [48.83, 2.42], [48.81, 2.47]], {
+      color: "#38bdf8", weight: 4, opacity: 0.8
+    }).bindPopup("Cours d'eau principal");
 
-    // --- Couche : Limites administratives ---
-    const limitesLayer = L.rectangle([[48.845, 2.30], [48.87, 2.46]],
-      { color: "#e6edf7", weight: 2, dashArray: "8 6", fill: false }).bindPopup("Emprise du projet");
+    const limitesLayer = L.rectangle([[48.845, 2.30], [48.87, 2.46]], {
+      color: "#e6edf7", weight: 2, dashArray: "8 6", fill: false
+    }).bindPopup("Emprise du projet");
 
-    // --- Couche : Trace du feu (fichier vecteur — remplacer le contenu de FIRE_GEOJSON
-    //     par votre GeoJSON réel : zone brûlée issue du diagnostic post-feu) ---
     const FIRE_GEOJSON = {
       type: "FeatureCollection",
       features: [{
@@ -875,14 +860,12 @@
       )
     }).addTo(osmMap);
 
-    // --- Couche : Points d'intérêt (mesures terrain) ---
     const poiLayer = L.layerGroup([
-      L.marker([48.8584, 2.2945], { title: "Parcelle A" }).bindPopup("<strong>Parcelle A</strong><br>NDVI moyen : 0,72"),
-      L.marker([48.8450, 2.4000], { title: "Parcelle B" }).bindPopup("<strong>Parcelle B</strong><br>NDVI moyen : 0,81"),
-      L.marker([48.8300, 2.4400], { title: "Station terrain" }).bindPopup("<strong>Station terrain</strong><br>Mesures de validation")
+      L.marker([48.8584, 2.2945]).bindPopup("<strong>Parcelle A</strong><br>NDVI moyen : 0,72"),
+      L.marker([48.8450, 2.4000]).bindPopup("<strong>Parcelle B</strong><br>NDVI moyen : 0,81"),
+      L.marker([48.8300, 2.4400]).bindPopup("<strong>Station terrain</strong><br>Mesures de validation")
     ]).addTo(osmMap);
 
-    // --- Panneau de gestion des couches (checkboxes reliées à Leaflet) ---
     const layerMap = {
       "layer-occupation": occupationLayer,
       "layer-ndvi": sentinelLayer,
@@ -899,9 +882,6 @@
         if (cb.checked) layer.addTo(osmMap); else osmMap.removeLayer(layer);
       });
     });
-    // Case "Grille" = fond OSM (base) : synchronisation inverse
-    const baseCheckbox = document.querySelector('[data-layer="layer-grille"]');
-    baseCheckbox.checked = true;
     } // fin du bloc Leaflet
 
     /* =========================================
@@ -909,8 +889,6 @@
     ========================================== */
     const HORIZONS = [10, 20, 30, 40, 60, 100];
 
-    // Proportions simulées par classe et par horizon (%), issues d'une
-    // chaîne de Markov calibrée sur les transitions observées (démo)
     const MARKOV_STATS = {
       10:  { veg: 38, agri: 32, urb: 20, eau: 10 },
       20:  { veg: 35, agri: 29, urb: 26, eau: 10 },
@@ -920,8 +898,6 @@
       100: { veg: 17, agri: 12, urb: 61, eau: 10 }
     };
 
-    // Zones simulées : classe de départ + basculement (automate cellulaire)
-    // [lonlat polygon, classe 2026, nouvelle classe, année de basculement]
     const MARKOV_ZONES = [
       { coords: [[2.30, 48.87], [2.46, 48.87], [2.46, 48.82], [2.30, 48.82]], from: "agri", to: "urb", switchYear: 30 },
       { coords: [[2.40, 48.86], [2.50, 48.86], [2.50, 48.81], [2.40, 48.81]], from: "veg",  to: "agri", switchYear: 40 },
@@ -939,13 +915,11 @@
 
     if (typeof L !== "undefined") {
       markovMap = L.map("markovMap").setView([48.82, 2.42], 12);
-      // Fond OSM identique à la carte principale
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(markovMap);
 
-      // --- Trace du feu sur la carte CA-Markov (même fichier vecteur) ---
       const feuMarkovLayer = L.geoJSON(FIRE_GEOJSON, {
         style: { color: "#ef4444", weight: 3, fillOpacity: 0.35, fillColor: "#ef4444", dashArray: "6 4" },
         onEachFeature: (f, layer) => layer.bindPopup(
@@ -955,7 +929,6 @@
         )
       }).addTo(markovMap);
 
-      // Une couche par horizon, créée à la demande
       function getLayer(years) {
         if (!markovLayers[years]) {
           markovLayers[years] = L.layerGroup(
@@ -977,7 +950,6 @@
       function showHorizon(years) {
         Object.values(markovLayers).forEach(l => markovMap.removeLayer(l));
         getLayer(years).addTo(markovMap);
-        // Mise à jour du panneau latéral
         const s = MARKOV_STATS[years];
         document.getElementById("markovYear").textContent = `Année projetée : ${2026 + years}`;
         document.getElementById("markovYearLabel").textContent = `+${years} ans`;
@@ -989,7 +961,6 @@
         document.getElementById("barAgri").style.width = s.agri + "%";
         document.getElementById("barUrb").style.width = s.urb + "%";
         document.getElementById("barEau").style.width = s.eau + "%";
-        // Synchronisation des contrôles
         markovSlider.value = HORIZONS.indexOf(years);
         markovSelect.value = String(years);
         document.querySelectorAll('.timeline .years button').forEach(b =>
@@ -997,7 +968,6 @@
         );
       }
 
-      // Slider, sélecteur, boutons d'horizon et lecture animée
       const markovSelect = document.getElementById("markovSelect");
       markovSlider.addEventListener("input", () => showHorizon(HORIZONS[+markovSlider.value]));
       markovSelect.addEventListener("change", () => showHorizon(+markovSelect.value));
@@ -1016,18 +986,17 @@
       });
 
       showHorizon(10);
-      window._markovShowHorizon = showHorizon; // exposé pour le timelapse
+      window._markovShowHorizon = showHorizon;
     } else {
       document.getElementById("markovMap").innerHTML =
         '<div style="height:100%; display:flex; align-items:center; justify-content:center; text-align:center; color:#93a4bf; font-size:0.9rem; padding:1.5rem;">' +
-        '📈 Carte CA-Markov : les projections 10 → 100 ans s\'affichent en local ou en ligne (l\'aperçu sandboxé bloque les ressources externes).</div>';
+        '📈 Carte CA-Markov : les projections 10 → 100 ans s\'affichent en local ou en ligne.</div>';
     }
 
     /* =========================================
        JS — 7. Apparition au scroll (toute la page)
     ========================================== */
     document.querySelectorAll("section, .card, .step, .stat, .model-side .scenario-bar").forEach(el => el.classList.add("reveal"));
-    // Petits décalages pour les grilles (effet cascade)
     document.querySelectorAll(".grid .card, .stats .stat").forEach(el => {
       const i = [...el.parentElement.children].indexOf(el);
       el.classList.add("delay-" + ((i % 3) + 1));
@@ -1049,7 +1018,6 @@
         if (typeof L !== "undefined" && tlMap) tlMap.invalidateSize();
       }, 200);
     });
-    // Accessibilité clavier : fermeture du menu mobile avec Échap
     window.addEventListener("keydown", (e) => {
       if (e.key === "Escape" && navLinks.classList.contains("open")) navLinks.classList.remove("open");
     });
@@ -1065,9 +1033,6 @@
     const tlPlayPause = document.getElementById("tlPlayPause");
     const tlSpeed = document.getElementById("tlSpeed");
 
-    // Emplacements des 6 images CA-Markov (une par horizon) :
-    // remplacer url: null par l'URL/chemin de votre carte exportée,
-    // et bounds par l'emprise géographique réelle de l'image.
     const TL_IMAGES = [
       { years: 10,  url:null, bounds: [[48.77, 2.30], [48.87, 2.50]] },
       { years: 20,  url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] },
@@ -1081,7 +1046,6 @@
     let tlMap = null, tlOverlays = [];
 
     if (typeof L !== "undefined") {
-      // Fond OpenStreetMap + un L.imageOverlay par image fournie
       tlMap = L.map("tlMap", { attributionControl: true }).setView([48.82, 2.42], 12);
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
         maxZoom: 19,
@@ -1100,7 +1064,6 @@
       tlThumbs.forEach((t, k) => t.classList.toggle("active", k === tlIndex));
       tlBadge.textContent = `+${cur.years} ans (${2026 + cur.years})`;
       tlProgress.style.width = ((tlIndex + 1) / TL_IMAGES.length * 100) + "%";
-      // Affichage de l'image du slot courant sur le fond OSM
       if (tlMap) {
         tlOverlays.forEach((o, k) => {
           if (!o) return;
@@ -1109,7 +1072,6 @@
         tlPlaceholder.style.display = cur.url ? "none" : "";
       }
       tlPlaceholderText.textContent = `Emplacement image : projection +${cur.years} ans`;
-      // Synchronisation avec la carte CA-Markov (même horizon)
       if (typeof L !== "undefined" && window._markovShowHorizon) window._markovShowHorizon(cur.years);
     }
 
