@@ -143,16 +143,47 @@
     .stat .label { color: var(--muted); font-size: 0.9rem; }
 
     /* ===== Visualisation NDVI ===== */
-    .viz-panel {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1.5rem;
+    .ndvi-map-container {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin-bottom: 1.5rem;
     }
-    .viz-controls { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin-top: 1rem; }
-    input[type="range"] { flex: 1; min-width: 200px; accent-color: var(--accent); }
-    .legend { display: flex; gap: 0.5rem; margin-top: 1rem; flex-wrap: wrap; }
-    .legend span {
-      display: inline-block; padding: 0.25rem 0.7rem; border-radius: 999px;
-      font-size: 0.8rem; color: #06121f; font-weight: 600;
+    .ndvi-controls {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .ndvi-controls button {
+      padding: 0.6rem 1.4rem;
+      border-radius: 999px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    #ndviBeforeBtn {
+      background: var(--accent-2);
+      color: #06121f;
+      border: none;
+    }
+    #ndviAfterBtn {
+      background: var(--bg-soft);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    #ndviBeforeBtn:hover, #ndviAfterBtn:hover {
+      transform: translateY(-2px);
+    }
+    #ndviBeforeBtn.active {
+      background: var(--accent-2);
+      opacity: 0.9;
+    }
+    #ndviAfterBtn.active {
+      background: var(--accent);
+      color: #06121f;
+      border-color: var(--accent);
     }
 
     /* ===== Carte interactive ===== */
@@ -393,7 +424,7 @@
 
   <!-- ===== HEADER VERT COULISSANT ===== -->
   <div id="sliding-header">
-    Remote Sensing — Project of Wildfire detection of Gironde in 20261
+    Remote Sensing — Project of Wildfire detection of Gironde in 2026
   </div>
 
   <!-- ===== HEADER PROJET ===== -->
@@ -490,7 +521,6 @@
         </div>
       </div>
       <div class="arrow">▼</div>
-
       <div class="step">
         <div class="num">2</div>
         <div>
@@ -499,7 +529,6 @@
         </div>
       </div>
       <div class="arrow">▼</div>
-
       <div class="step">
         <div class="num">3</div>
         <div>
@@ -508,7 +537,6 @@
         </div>
       </div>
       <div class="arrow">▼</div>
-
       <div class="step">
         <div class="num">4</div>
         <div>
@@ -517,7 +545,6 @@
         </div>
       </div>
       <div class="arrow">▼</div>
-
       <div class="step">
         <div class="num green">5</div>
         <div>
@@ -526,7 +553,6 @@
         </div>
       </div>
       <div class="arrow">▼</div>
-
       <div class="step">
         <div class="num">6</div>
         <div>
@@ -534,24 +560,20 @@
           <p>Calculation of a clustering</p>
         </div>
       </div>
-    </div>
-     <div class="arrow">▼</div>
-
-    <div class="step">
+      <div class="arrow">▼</div>
+      <div class="step">
         <div class="num">7</div>
         <div>
           <h3>Machine Learning algorithms of classification</h3>
-          <p>Calculation of Machine Learning algorithm of unsupervised classification (K-Means , Isocluster)</p>
+          <p>Calculation of Machine Learning algorithm of unsupervised classification (K-Means, Isocluster)</p>
         </div>
       </div>
-    </div>
-     <div class="arrow">▼</div>
-
-    <div class="step">
+      <div class="arrow">▼</div>
+      <div class="step">
         <div class="num">8</div>
         <div>
-          <h3>Deep Learning  and cellular automata algorithms  of prediction</h3>
-          <p>Calculation of Markov Chains and CA-Markov </p>
+          <h3>Deep Learning and cellular automata algorithms of prediction</h3>
+          <p>Calculation of Markov Chains and CA-Markov</p>
         </div>
       </div>
     </div>
@@ -569,28 +591,22 @@
     </div>
   </section>
 
-  <!-- ===== VISUALISATION ===== -->
+  <!-- ===== VISUALISATION NDVI ===== -->
   <section id="visualisation">
-    <h2> 2) Detection of the fire by Indices (NDVI) and Ratio (CTVI) </h2>
-    <div class="viz-panel">
-      <canvas id="ndviCanvas" width="740" height="320" style="width:100%; height:auto; border-radius:10px; display:block;"></canvas>
-      <div class="viz-controls">
-        <label for="ndviSlider">Seuil de classification:</label>
-        <input type="range" id="ndviSlider" min="0" max="100" value="45" />
-        <span id="ndviValue">0.45</span>
-      </div>
-      <div class="legend">
-        <span style="background:#f4c542;">Sol nu / urbain</span>
-        <span style="background:#7ec86a;">Végétation clairsemée</span>
-        <span style="background:#1f8a4c;">Végétation dense</span>
-        <span style="background:#1e5aa8;">Eau</span>
-      </div>
+    <h2>2) Détection du feu par NDVI</h2>
+    <p class="subtitle">Comparaison des indices NDVI avant et après l'incendie avec fond OpenStreetMap.</p>
+    <div class="ndvi-map-container">
+      <div id="ndviMap" style="height: 500px; border-radius: 10px; border: 1px solid var(--border);"></div>
+    </div>
+    <div class="ndvi-controls">
+      <button id="ndviBeforeBtn" class="btn btn-primary">NDVI Avant</button>
+      <button id="ndviAfterBtn" class="btn btn-ghost">NDVI Après</button>
     </div>
   </section>
 
   <!-- ===== CARTE INTERACTIVE ===== -->
   <section id="carte">
-    <h2>3) Calculation of Color Composite for the  detection of the fire</h2>
+    <h2>3) Calcul des composites colorés pour la détection du feu</h2>
     <p class="subtitle">Zone d'étude avec couches activables — glissez pour vous déplacer, survolez les éléments pour plus de détails.</p>
     <div class="map-wrap">
       <div id="osmMap" style="height:480px; border-radius:10px; border:1px solid #24334f; z-index:1;"></div>
@@ -778,6 +794,8 @@
       document.getElementById("markovMap").innerHTML =
         '<div style="height:100%; display:flex; align-items:center; justify-content:center; text-align:center; color:#93a4bf; font-size:0.9rem; padding:1.5rem;">📈 Carte CA-Markov: projections 10 → 100 ans.</div>';
       document.getElementById("tlMap").style.display = "none";
+      document.getElementById("ndviMap").innerHTML =
+        '<div style="height:100%; display:flex; align-items:center; justify-content:center; text-align:center; color:#93a4bf; font-size:0.9rem; padding:1.5rem;">🌿 Carte NDVI: images avant/après à ajouter.</div>';
     }
 
     // ===== 1. Menu mobile =====
@@ -830,27 +848,367 @@
     );
     statsObserver.observe(statsSection);
 
-    // ===== 4. Visualisation NDVI =====
-    const canvas = document.getElementById("ndviCanvas");
-    const ctx = canvas.getContext("2d");
-    const slider = document.getElementById("ndviSlider");
-    const valueLabel = document.getElementById("ndviValue");
+    // ===== 4. Carte NDVI avec OpenStreetMap et images avant/après =====
+    let ndviMap = null;
+    let ndviBeforeLayer = null;
+    let ndviAfterLayer = null;
+    const girondeBounds = [[44.5, -1.0], [45.5, 0.5]]; // Coordonnées de la Gironde
 
-    function ndviAt(x, y) {
-      const s = Math.sin(x * 0.045) * Math.cos(y * 0.035);
-      const blob = Math.exp(-((x - 180) ** 2 + (y - 160) ** 2) / 9000);
-      const water = Math.exp(-((x - 600) ** 2 + (y - 250) ** 2) / 4000);
-      let v = 0.35 + 0.25 * s + 0.35 * blob - 0.9 * water;
-      return Math.max(-1, Math.min(1, v));
+    if (typeof L !== "undefined") {
+      ndviMap = L.map("ndviMap").setView([44.8378, -0.5792], 10);
+
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(ndviMap);
+
+      // ⬇️ ⬇️ ⬇️ REMPLACE CES 2 LIGNES AVEC TES CHEMINS D'IMAGES ⬇️ ⬇️ ⬇️
+      ndviBeforeLayer = L.imageOverlay("images/ndvi_gironde_avant_2026.png", girondeBounds, {
+        opacity: 0.7,
+        zIndex: 10,
+        interactive: false
+      });
+      ndviAfterLayer = L.imageOverlay("C:/Users/alexi/Downloads/tmp000.jpg", girondeBounds, {
+        opacity: 0.7,
+        zIndex: 10,
+        interactive: false
+      });
+      // ⬆️ ⬆️ ⬆️ REMPLACE CES 2 LIGNES AVEC TES CHEMINS D'IMAGES ⬆️ ⬆️ ⬆️
+
+      ndviBeforeLayer.addTo(ndviMap);
+
+      document.getElementById("ndviBeforeBtn").addEventListener("click", () => {
+        ndviMap.removeLayer(ndviAfterLayer);
+        ndviBeforeLayer.addTo(ndviMap);
+        document.getElementById("ndviBeforeBtn").classList.add("active");
+        document.getElementById("ndviAfterBtn").classList.remove("active");
+      });
+
+      document.getElementById("ndviAfterBtn").addEventListener("click", () => {
+        ndviMap.removeLayer(ndviBeforeLayer);
+        ndviAfterLayer.addTo(ndviMap);
+        document.getElementById("ndviBeforeBtn").classList.remove("active");
+        document.getElementById("ndviAfterBtn").classList.add("active");
+      });
     }
 
-    function classify(v, threshold) {
-      if (v < 0) return [30, 90, 168];
-      if (v < threshold * 0.6) return [244, 197, 66];
-      if (v < threshold) return [126, 200, 106];
-      return [31, 138, 76];
+    // ===== 5. Carte interactive Leaflet (fond OSM) =====
+    let osmMap = null;
+    if (typeof L !== "undefined") {
+      osmMap = L.map("osmMap").setView([48.8566, 2.3522], 12);
+
+      const osmBase = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(osmMap);
+
+      const sentinelLayer = L.tileLayer("https://services.sentinel-hub.com/ogc/wms/{your-instance-id}", {
+        layers: "FALSE_COLOR", maxZoom: 19, opacity: 0.7
+      });
+
+      const occupationLayer = L.geoJSON({
+        type: "FeatureCollection",
+        features: [
+          { type: "Feature", properties: { name: "Zone agricole", type: "Agriculture" },
+            geometry: { type: "Polygon", coordinates: [[[2.30, 48.87], [2.40, 48.87], [2.40, 48.83], [2.30, 48.83], [2.30, 48.87]]] } },
+          { type: "Feature", properties: { name: "Zone urbaine", type: "Urbain" },
+            geometry: { type: "Polygon", coordinates: [[[2.32, 48.86], [2.37, 48.86], [2.37, 48.84], [2.32, 48.84], [2.32, 48.86]]] } },
+          { type: "Feature", properties: { name: "Espace vert", type: "Végétation" },
+            geometry: { type: "Polygon", coordinates: [[[2.40, 48.86], [2.46, 48.86], [2.46, 48.82], [2.40, 48.82], [2.40, 48.86]]] } }
+        ]
+      }, {
+        style: f => ({
+          color: "#38bdf8", weight: 2, fillOpacity: 0.25,
+          fillColor: { "Agriculture": "#f4c542", "Urbain": "#55616f", "Végétation": "#1f8a4c" }[f.properties.type]
+        }),
+        onEachFeature: (f, layer) => layer.bindPopup(`<strong>${f.properties.name}</strong><br>${f.properties.type}`)
+      }).addTo(osmMap);
+
+      const hydroLayer = L.polyline([[48.86, 2.32], [48.85, 2.38], [48.83, 2.42], [48.81, 2.47]], {
+        color: "#38bdf8", weight: 4, opacity: 0.8
+      }).bindPopup("Cours d'eau principal");
+
+      const limitesLayer = L.rectangle([[48.845, 2.30], [48.87, 2.46]], {
+        color: "#e6edf7", weight: 2, dashArray: "8 6", fill: false
+      }).bindPopup("Emprise du projet");
+
+      const FIRE_GEOJSON = {
+        type: "FeatureCollection",
+        features: [{
+          type: "Feature",
+          properties: {
+            name: "Trace du feu — secteur étudié",
+            date: "2026-07-14",
+            surface_ha: 385,
+            cause: "Simulée (à remplacer par les données réelles)"
+          },
+          geometry: {
+            type: "Polygon",
+            coordinates: [[[2.35, 48.86], [2.41, 48.855], [2.44, 48.83], [2.42, 48.79], [2.36, 48.795], [2.33, 48.82], [2.325, 48.85], [2.35, 48.86]]]
+          }
+        }]
+      };
+
+      const feuLayer = L.geoJSON(FIRE_GEOJSON, {
+        style: {
+          color: "#ef4444", weight: 3, fillOpacity: 0.3,
+          fillColor: "#ef4444", dashArray: "6 4"
+        },
+        onEachFeature: (f, layer) => layer.bindPopup(
+          `<strong>🔥 ${f.properties.name}</strong><br>` +
+          `Date : ${f.properties.date}<br>Surface estimée : ${f.properties.surface_ha} ha<br>` +
+          `<em>${f.properties.cause}</em>`
+        )
+      }).addTo(osmMap);
+
+      const poiLayer = L.layerGroup([
+        L.marker([48.8584, 2.2945]).bindPopup("<strong>Parcelle A</strong><br>NDVI moyen : 0,72"),
+        L.marker([48.8450, 2.4000]).bindPopup("<strong>Parcelle B</strong><br>NDVI moyen : 0,81"),
+        L.marker([48.8300, 2.4400]).bindPopup("<strong>Station terrain</strong><br>Mesures de validation")
+      ]).addTo(osmMap);
+
+      const layerMap = {
+        "layer-occupation": occupationLayer,
+        "layer-ndvi": sentinelLayer,
+        "layer-hydro": hydroLayer,
+        "layer-limites": limitesLayer,
+        "layer-feu": feuLayer,
+        "layer-poi": poiLayer,
+        "layer-grille": osmBase
+      };
+      document.querySelectorAll('.layer-item input[data-layer]').forEach(cb => {
+        cb.addEventListener("change", () => {
+          const layer = layerMap[cb.dataset.layer];
+          if (!layer) return;
+          if (cb.checked) layer.addTo(osmMap); else osmMap.removeLayer(layer);
+        });
+      });
     }
 
+    // ===== 6. Modélisation CA-Markov =====
+    const HORIZONS = [10, 20, 30, 40, 60, 100];
+    const MARKOV_STATS = {
+      10:  { veg: 38, agri: 32, urb: 20, eau: 10 },
+      20:  { veg: 35, agri: 29, urb: 26, eau: 10 },
+      30:  { veg: 32, agri: 26, urb: 32, eau: 10 },
+      40:  { veg: 29, agri: 23, urb: 38, eau: 10 },
+      60:  { veg: 24, agri: 18, urb: 48, eau: 10 },
+      100: { veg: 17, agri: 12, urb: 61, eau: 10 }
+    };
+
+    const MARKOV_ZONES = [
+      { coords: [[2.30, 48.87], [2.46, 48.87], [2.46, 48.82], [2.30, 48.82]], from: "agri", to: "urb", switchYear: 30 },
+      { coords: [[2.40, 48.86], [2.50, 48.86], [2.50, 48.81], [2.40, 48.81]], from: "veg",  to: "agri", switchYear: 40 },
+      { coords: [[2.30, 48.82], [2.42, 48.82], [2.42, 48.77], [2.30, 48.77]], from: "agri", to: "urb", switchYear: 20 },
+      { coords: [[2.42, 48.82], [2.55, 48.82], [2.55, 48.77], [2.42, 48.77]], from: "veg",  to: "urb", switchYear: 60 },
+      { coords: [[2.46, 48.87], [2.58, 48.87], [2.58, 48.83], [2.46, 48.83]], from: "veg",  to: "agri", switchYear: 60 },
+      { coords: [[2.30, 48.77], [2.44, 48.77], [2.44, 48.73], [2.30, 48.73]], from: "agri", to: "urb", switchYear: 40 }
+    ];
+    const CLASS_COLORS = { veg: "#1f8a4c", agri: "#f4c542", urb: "#55616f", eau: "#1e5aa8" };
+    const CLASS_NAMES  = { veg: "Végétation", agri: "Agriculture", urb: "Urbain", eau: "Eau" };
+
+    const markovSlider = document.getElementById("markovSlider");
+    const markovPlay = document.getElementById("markovPlay");
+    let markovMap = null, markovLayers = {}, playTimer = null;
+
+    if (typeof L !== "undefined") {
+      markovMap = L.map("markovMap").setView([48.82, 2.42], 12);
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(markovMap);
+
+      const feuMarkovLayer = L.geoJSON(FIRE_GEOJSON, {
+        style: { color: "#ef4444", weight: 3, fillOpacity: 0.35, fillColor: "#ef4444", dashArray: "6 4" },
+        onEachFeature: (f, layer) => layer.bindPopup(
+          `<strong>🔥 ${f.properties.name}</strong><br>` +
+          `Surface estimée : ${f.properties.surface_ha} ha<br>` +
+          "La modélisation CA-Markov projette la recolonisation végétale de cette emprise."
+        )
+      }).addTo(markovMap);
+
+      function getLayer(years) {
+        if (!markovLayers[years]) {
+          markovLayers[years] = L.layerGroup(
+            MARKOV_ZONES.map(z => {
+              const cls = years >= z.switchYear ? z.to : z.from;
+              return L.polygon(z.coords, {
+                color: "#0b1220", weight: 1.5,
+                fillColor: CLASS_COLORS[cls], fillOpacity: 0.65
+              }).bindPopup(
+                `<strong>${CLASS_NAMES[cls]}</strong><br>Horizon : +${years} ans<br>` +
+                (cls !== z.from ? `Transition CA-Markov : ${CLASS_NAMES[z.from]} → ${CLASS_NAMES[z.to]}` : "Classe stable sur l'horizon")
+              );
+            })
+          );
+        }
+        return markovLayers[years];
+      }
+
+      function showHorizon(years) {
+        Object.values(markovLayers).forEach(l => markovMap.removeLayer(l));
+        getLayer(years).addTo(markovMap);
+        const s = MARKOV_STATS[years];
+        document.getElementById("markovYear").textContent = `Année projetée : ${2026 + years}`;
+        document.getElementById("markovYearLabel").textContent = `+${years} ans`;
+        document.getElementById("pctVeg").textContent = s.veg + " %";
+        document.getElementById("pctAgri").textContent = s.agri + " %";
+        document.getElementById("pctUrb").textContent = s.urb + " %";
+        document.getElementById("pctEau").textContent = s.eau + " %";
+        document.getElementById("barVeg").style.width = s.veg + "%";
+        document.getElementById("barAgri").style.width = s.agri + "%";
+        document.getElementById("barUrb").style.width = s.urb + "%";
+        document.getElementById("barEau").style.width = s.eau + "%";
+        markovSlider.value = HORIZONS.indexOf(years);
+        markovSelect.value = String(years);
+        document.querySelectorAll('.timeline .years button').forEach(b =>
+          b.classList.toggle("active", +b.dataset.years === years)
+        );
+      }
+
+      const markovSelect = document.getElementById("markovSelect");
+      markovSlider.addEventListener("input", () => showHorizon(HORIZONS[+markovSlider.value]));
+      markovSelect.addEventListener("change", () => showHorizon(+markovSelect.value));
+      document.querySelectorAll('.timeline .years button').forEach(b =>
+        b.addEventListener("click", () => showHorizon(+b.dataset.years))
+      );
+      markovPlay.addEventListener("click", () => {
+        if (playTimer) { clearInterval(playTimer); playTimer = null; markovPlay.textContent = "▶ Lecture"; return; }
+        markovPlay.textContent = "⏸ Pause";
+        let i = 0;
+        playTimer = setInterval(() => {
+          showHorizon(HORIZONS[i % HORIZONS.length]);
+          i++;
+        }, 1600);
+        showHorizon(HORIZONS[0]);
+      });
+
+      showHorizon(10);
+      window._markovShowHorizon = showHorizon;
+    } else {
+      document.getElementById("markovMap").innerHTML =
+        '<div style="height:100%; display:flex; align-items:center; justify-content:center; text-align:center; color:#93a4bf; font-size:0.9rem; padding:1.5rem;">' +
+        '📈 Carte CA-Markov : les projections 10 → 100 ans s\'affichent en local ou en ligne.</div>';
+    }
+
+    // ===== 7. Apparition au scroll =====
+    document.querySelectorAll("section, .card, .step, .stat, .model-side .scenario-bar").forEach(el => el.classList.add("reveal"));
+    document.querySelectorAll(".grid .card, .stats .stat").forEach(el => {
+      const i = [...el.parentElement.children].indexOf(el);
+      el.classList.add("delay-" + ((i % 3) + 1));
+    });
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add("visible");
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
+
+    // ===== 8. Recalcul des cartes au redimensionnement =====
+    let resizeTimer = null;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        if (typeof L !== "undefined") {
+          if (osmMap) osmMap.invalidateSize();
+          if (markovMap) markovMap.invalidateSize();
+          if (tlMap) tlMap.invalidateSize();
+          if (ndviMap) ndviMap.invalidateSize();
+        }
+      }, 200);
+    });
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && navLinks.classList.contains("open")) navLinks.classList.remove("open");
+    });
+
+    // ===== 9. Timelapse CA-Markov =====
+    const tlThumbs = [...document.querySelectorAll(".tl-thumb")];
+    const tlBadge = document.getElementById("tlBadge");
+    const tlPlaceholder = document.getElementById("tlPlaceholder");
+    const tlPlaceholderText = document.getElementById("tlPlaceholderText");
+    const tlProgress = document.getElementById("tlProgress");
+    const tlPlayPause = document.getElementById("tlPlayPause");
+    const tlSpeed = document.getElementById("tlSpeed");
+
+    const TL_IMAGES = [
+      { years: 10,  url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] },
+      { years: 20,  url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] },
+      { years: 30,  url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] },
+      { years: 40,  url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] },
+      { years: 60,  url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] },
+      { years: 100, url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] }
+    ];
+
+    let tlIndex = 0, tlTimer = null, tlStepStart = null;
+    let tlMap = null, tlOverlays = [];
+
+    if (typeof L !== "undefined") {
+      tlMap = L.map("tlMap", { attributionControl: true }).setView([48.82, 2.42], 12);
+      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        maxZoom: 19,
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(tlMap);
+      tlOverlays = TL_IMAGES.map(t =>
+        t.url ? L.imageOverlay(t.url, t.bounds, { opacity: 0.85 }) : null
+      );
+    } else {
+      document.getElementById("tlMap").style.display = "none";
+    }
+
+    function tlShow(i) {
+      tlIndex = (i + TL_IMAGES.length) % TL_IMAGES.length;
+      const cur = TL_IMAGES[tlIndex];
+      tlThumbs.forEach((t, k) => t.classList.toggle("active", k === tlIndex));
+      tlBadge.textContent = `+${cur.years} ans (${2026 + cur.years})`;
+      tlProgress.style.width = ((tlIndex + 1) / TL_IMAGES.length * 100) + "%";
+      if (tlMap) {
+        tlOverlays.forEach((o, k) => {
+          if (!o) return;
+          if (k === tlIndex) o.addTo(tlMap); else tlMap.removeLayer(o);
+        });
+        tlPlaceholder.style.display = cur.url ? "none" : "";
+      }
+      tlPlaceholderText.textContent = `Emplacement image : projection +${cur.years} ans`;
+      if (typeof L !== "undefined" && window._markovShowHorizon) window._markovShowHorizon(cur.years);
+    }
+
+    function tlTick(ts) {
+      if (tlStepStart === null) tlStepStart = ts;
+      const speed = +tlSpeed.value;
+      if (ts - tlStepStart >= speed) { tlStepStart = ts; tlShow(tlIndex + 1); }
+      if (tlTimer !== null) requestAnimationFrame(tlTick);
+    }
+
+    function tlPlay() {
+      tlTimer = requestAnimationFrame(tlTick);
+      tlPlayPause.textContent = "⏸ Pause";
+    }
+    function tlPause() {
+      if (tlTimer !== null) cancelAnimationFrame(tlTimer);
+      tlTimer = null; tlStepStart = null;
+      tlPlayPause.textContent = "▶ Lecture";
+    }
+
+    tlPlayPause.addEventListener("click", () => tlTimer === null ? tlPlay() : tlPause());
+    document.getElementById("tlPrev").addEventListener("click", () => tlShow(tlIndex - 1));
+    document.getElementById("tlNext").addEventListener("click", () => tlShow(tlIndex + 1));
+    tlThumbs.forEach((t, k) => t.addEventListener("click", () => { tlPause(); tlShow(k); }));
+    tlSpeed.addEventListener("input", () => { tlStepStart = null; });
+
+    tlShow(0);
+
+    // ===== 10. Formulaire de contact =====
+    document.getElementById("contactForm").addEventListener("submit", (e) => {
+      e.preventDefault();
+      document.getElementById("formMsg").style.display = "block";
+      e.target.reset();
+    });
+  </script>
+</body>
+</html>
     function drawNDVI() {
       const threshold = slider.value / 100;
       value
