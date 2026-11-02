@@ -6,6 +6,7 @@
   <title>Remote Sensing — Wildfire Detection in Gironde 2026</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <style>
+    /* ===== Styles (inchangés) ===== */
     :root {
       --bg: #0b1220;
       --bg-soft: #111c30;
@@ -43,103 +44,7 @@
       100% { transform: translateY(0); opacity: 1; }
     }
 
-    /* ===== Header projet ===== */
-    #project-header {
-      background: linear-gradient(135deg, #0e2a47 0%, #123a5c 55%, #0d5c4a 100%);
-      border-bottom: 3px solid var(--accent);
-      padding: 2.2rem 1.5rem 2rem;
-    }
-    .header-inner {
-      max-width: 1100px; margin: 0 auto;
-      display: flex; align-items: center; gap: 1.8rem; flex-wrap: wrap;
-    }
-    .header-logo { flex-shrink: 0; }
-    .header-text { flex: 1; min-width: 240px; }
-    .header-course {
-      display: inline-block;
-      background: rgba(56, 189, 248, 0.18);
-      border: 1px solid var(--accent);
-      color: var(--accent);
-      font-size: 0.8rem; font-weight: 700; letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 0.3rem 0.9rem; border-radius: 999px;
-      margin-bottom: 0.7rem;
-    }
-    .header-text h1 {
-      font-size: clamp(1.4rem, 3.5vw, 2.1rem);
-      line-height: 1.25; margin-bottom: 0.35rem;
-    }
-    .header-text h1 span { color: var(--accent); }
-    .header-tagline { color: #c9dbf0; font-size: 0.95rem; margin-bottom: 0.9rem; }
-    .header-meta {
-      display: flex; gap: 1.5rem; flex-wrap: wrap;
-      font-size: 0.85rem; color: var(--muted);
-    }
-    .header-meta div strong { color: var(--text); font-weight: 600; }
-
-    /* ===== Navigation ===== */
-    header {
-      position: sticky; top: 0; z-index: 50;
-      background: rgba(11, 18, 32, 0.85);
-      backdrop-filter: blur(8px);
-      border-bottom: 1px solid var(--border);
-    }
-    nav {
-      max-width: 1100px; margin: 0 auto;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0.9rem 1.5rem;
-    }
-    .logo { font-weight: 700; font-size: 1.15rem; letter-spacing: 0.5px; }
-    .logo span { color: var(--accent); }
-    .nav-links { display: flex; gap: 1.4rem; list-style: none; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
-    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
-    .burger { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
-
-    /* ===== Sections ===== */
-    section { max-width: 1100px; margin: 0 auto; padding: 4.5rem 1.5rem; }
-    h2 { font-size: 1.8rem; margin-bottom: 0.4rem; }
-    .subtitle { color: var(--muted); margin-bottom: 2rem; }
-
-    /* ===== Hero ===== */
-    #hero {
-      text-align: center;
-      padding: 7rem 1.5rem 6rem;
-      background:
-        radial-gradient(ellipse at 30% 20%, rgba(56, 189, 248, 0.15), transparent 55%),
-        radial-gradient(ellipse at 75% 80%, rgba(52, 211, 153, 0.12), transparent 55%);
-    }
-    #hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.2; }
-    #hero h1 span { color: var(--accent); }
-    #hero p { max-width: 640px; margin: 1.2rem auto 2rem; color: var(--muted); font-size: 1.05rem; }
-    .btn {
-      display: inline-block; padding: 0.8rem 1.6rem; border-radius: 999px;
-      text-decoration: none; font-weight: 600; transition: transform 0.2s, box-shadow 0.2s;
-    }
-    .btn-primary { background: var(--accent); color: #06121f; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(56,189,248,0.35); }
-    .btn-ghost { border: 1px solid var(--border); color: var(--text); margin-left: 0.6rem; }
-    .btn-ghost:hover { border-color: var(--accent); }
-
-    /* ===== Cards ===== */
-    .grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-    .card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: var(--radius); padding: 1.4rem;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .card:hover { transform: translateY(-4px); border-color: var(--accent); }
-    .card .icon { font-size: 1.6rem; margin-bottom: 0.6rem; }
-    .card h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
-    .card p { color: var(--muted); font-size: 0.92rem; }
-
-    /* ===== Stats ===== */
-    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
-    .stat { text-align: center; background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem 1rem; }
-    .stat .value { font-size: 2rem; font-weight: 700; color: var(--accent); }
-    .stat .label { color: var(--muted); font-size: 0.9rem; }
-
-    /* ===== NDVI Map ===== */
+    /* ===== NDVI Map (Styles ajoutés) ===== */
     .ndvi-map-container {
       background: var(--card);
       border: 1px solid var(--border);
@@ -180,8 +85,69 @@
       color: #06121f;
       border-color: var(--accent);
     }
+    /* ===== Fin des styles NDVI ===== */
 
-    /* ===== Carte interactive ===== */
+    /* ===== Autres styles (inchangés) ===== */
+    #project-header {
+      background: linear-gradient(135deg, #0e2a47 0%, #123a5c 55%, #0d5c4a 100%);
+      border-bottom: 3px solid var(--accent);
+      padding: 2.2rem 1.5rem 2rem;
+    }
+    .header-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; gap: 1.8rem; flex-wrap: wrap;
+    }
+    header {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(11, 18, 32, 0.85);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 1.5rem;
+    }
+    .logo { font-weight: 700; font-size: 1.15rem; letter-spacing: 0.5px; }
+    .logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 1.4rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.95rem; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--accent); }
+    .burger { display: none; background: none; border: none; color: var(--text); font-size: 1.5rem; cursor: pointer; }
+    section { max-width: 1100px; margin: 0 auto; padding: 4.5rem 1.5rem; }
+    h2 { font-size: 1.8rem; margin-bottom: 0.4rem; }
+    .subtitle { color: var(--muted); margin-bottom: 2rem; }
+    #hero {
+      text-align: center;
+      padding: 7rem 1.5rem 6rem;
+      background:
+        radial-gradient(ellipse at 30% 20%, rgba(56, 189, 248, 0.15), transparent 55%),
+        radial-gradient(ellipse at 75% 80%, rgba(52, 211, 153, 0.12), transparent 55%);
+    }
+    #hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); line-height: 1.2; }
+    #hero h1 span { color: var(--accent); }
+    .btn {
+      display: inline-block; padding: 0.8rem 1.6rem; border-radius: 999px;
+      text-decoration: none; font-weight: 600; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .btn-primary { background: var(--accent); color: #06121f; }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(56,189,248,0.35); }
+    .btn-ghost { border: 1px solid var(--border); color: var(--text); margin-left: 0.6rem; }
+    .btn-ghost:hover { border-color: var(--accent); }
+    .grid { display: grid; gap: 1.2rem; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.4rem;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .card .icon { font-size: 1.6rem; margin-bottom: 0.6rem; }
+    .card h3 { font-size: 1.05rem; margin-bottom: 0.4rem; }
+    .card p { color: var(--muted); font-size: 0.92rem; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; }
+    .stat { text-align: center; background: var(--bg-soft); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem 1rem; }
+    .stat .value { font-size: 2rem; font-weight: 700; color: var(--accent); }
+    .stat .label { color: var(--muted); font-size: 0.9rem; }
     .map-wrap {
       display: grid; grid-template-columns: 1fr 250px; gap: 1rem;
       background: var(--card); border: 1px solid var(--border);
@@ -199,9 +165,6 @@
     .layer-item input { accent-color: var(--accent); width: 16px; height: 16px; cursor: pointer; }
     .layer-item .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
     .layer-item span.label { font-size: 0.85rem; }
-    .map-side .hint { color: var(--muted); font-size: 0.78rem; margin-top: 0.8rem; }
-
-    /* ===== Modélisation ===== */
     .model-wrap {
       display: grid; grid-template-columns: 1fr 280px; gap: 1rem;
       background: var(--card); border: 1px solid var(--border);
@@ -224,9 +187,6 @@
       height: 100%; border-radius: 999px;
       transition: width 0.6s ease; width: 0;
     }
-    .model-note { color: var(--muted); font-size: 0.78rem; margin-top: 1rem; }
-
-    /* ===== Timeline ===== */
     .timeline {
       margin-top: 1.1rem;
       background: var(--card); border: 1px solid var(--border);
@@ -259,8 +219,6 @@
       background: var(--accent-2); color: #06121f; font-weight: 700;
       cursor: pointer; font-size: 0.85rem;
     }
-
-    /* ===== Timelapse ===== */
     .timelapse-panel {
       background: var(--card); border: 1px solid var(--border);
       border-radius: var(--radius); padding: 1rem;
@@ -271,11 +229,6 @@
       border: 1px solid var(--border); background: #0d1626;
     }
     #tlMap { position: absolute; inset: 0; z-index: 1; background: #0d1626; }
-    .tl-map-placeholder {
-      position: absolute; inset: 0; z-index: 1;
-      display: flex; align-items: center; justify-content: center;
-      text-align: center; color: var(--muted); font-size: 0.85rem; padding: 1rem;
-    }
     .tl-badge {
       position: absolute; top: 0.8rem; left: 0.8rem;
       background: rgba(11, 18, 32, 0.85); border: 1px solid var(--accent);
@@ -314,9 +267,6 @@
     }
     .tl-thumb:hover { transform: translateY(-3px); border-color: var(--accent); }
     .tl-thumb.active { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.35); }
-    .tl-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-
-    /* ===== Formulaire ===== */
     form { display: grid; gap: 1rem; max-width: 560px; }
     label { font-size: 0.9rem; color: var(--muted); }
     input, textarea {
@@ -332,11 +282,7 @@
     }
     button[type="submit"]:hover { transform: translateY(-2px); }
     .form-msg { color: var(--accent-2); font-size: 0.9rem; display: none; }
-
-    /* ===== Footer ===== */
     footer { border-top: 1px solid var(--border); padding: 2rem 1.5rem; text-align: center; color: var(--muted); font-size: 0.9rem; }
-
-    /* ===== Méthodologie ===== */
     #methodologie .flow { display: flex; flex-direction: column; align-items: center; gap: 0; }
     .step {
       display: flex; align-items: center; gap: 1rem;
@@ -367,8 +313,6 @@
       0%, 100% { transform: translateY(0); opacity: 0.7; }
       50% { transform: translateY(4px); opacity: 1; }
     }
-
-    /* ===== Animations ===== */
     .reveal {
       opacity: 0; transform: translateY(28px);
       transition: opacity 0.7s ease, transform 0.7s ease;
@@ -382,8 +326,6 @@
       .arrow { animation: none; }
       html { scroll-behavior: auto; }
     }
-
-    /* ===== Responsive ===== */
     @media (max-width: 720px) {
       section { padding: 3rem 1.1rem; }
       #hero { padding: 4.5rem 1.1rem 4rem; }
@@ -534,696 +476,7 @@
         <div class="num">4</div>
         <div>
           <h3>Statistical Analysis (PCA)</h3>
-          <p>Calculation of Principal Component Analysis (PCA)</p>
-        </div>
-      </div>
-      <div class="arrow">▼</div>
-      <div class="step">
-        <div class="num green">5</div>
-        <div>
-          <h3>Statistical Analysis (Minimum Noise Fraction)</h3>
-          <p>Calculation of Minimum Noise Fraction (MNF)</p>
-        </div>
-      </div>
-      <div class="arrow">▼</div>
-      <div class="step">
-        <div class="num">6</div>
-        <div>
-          <h3>Classification</h3>
-          <p>Calculation of a clustering</p>
-        </div>
-      </div>
-      <div class="arrow">▼</div>
-      <div class="step">
-        <div class="num">7</div>
-        <div>
-          <h3>Machine Learning algorithms of classification</h3>
-          <p>Calculation of Machine Learning algorithm of unsupervised classification (K-Means, Isocluster)</p>
-        </div>
-      </div>
-      <div class="arrow">▼</div>
-      <div class="step">
-        <div class="num">8</div>
-        <div>
-          <h3>Deep Learning and cellular automata algorithms of prediction</h3>
-          <p>Calculation of Markov Chains and CA-Markov</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== DONNÉES ===== -->
-  <section id="donnees">
-    <h2>Données & chiffres clés</h2>
-    <p class="subtitle">Synthèse du jeu de données utilisé.</p>
-    <div class="stats">
-      <div class="stat"><div class="value" data-target="120">0</div><div class="label">Scènes Sentinel-2</div></div>
-      <div class="stat"><div class="value" data-target="10">0</div><div class="label">Résolution (m)</div></div>
-      <div class="stat"><div class="value" data-target="5">0</div><div class="label">Années couvertes</div></div>
-      <div class="stat"><div class="value" data-target="96">0</div><div class="label">% pixels valides</div></div>
-    </div>
-  </section>
-
-  <!-- ===== VISUALISATION NDVI (SOLUTION GARANTIE) ===== -->
-  <section id="visualisation">
-    <h2>2) Détection du feu par NDVI</h2>
-    <p class="subtitle">Comparaison des indices NDVI avant et après l'incendie avec fond OpenStreetMap.</p>
-    <div class="ndvi-map-container">
-      <div id="ndviMap" style="height: 500px; border-radius: 10px; border: 1px solid var(--border);"></div>
-    </div>
-    <div class="ndvi-controls">
-      <button id="ndviBeforeBtn" class="btn btn-primary">NDVI Avant</button>
-      <button id="ndviAfterBtn" class="btn btn-ghost">NDVI Après</button>
-    </div>
-  </section>
-
-  <!-- ===== CARTE INTERACTIVE ===== -->
-  <section id="carte">
-    <h2>3) Calcul des composites colorés pour la détection du feu</h2>
-    <p class="subtitle">Zone d'étude avec couches activables.</p>
-    <div class="map-wrap">
-      <div id="osmMap" style="height:480px; border-radius:10px; border:1px solid #24334f; z-index:1;"></div>
-      <div class="map-side">
-        <h3>Couches</h3>
-        <label class="layer-item">
-          <input type="checkbox" data-layer="layer-occupation" checked />
-          <span class="dot" style="background:#7ec86a;"></span>
-          <span class="label">Occupation du sol</span>
-        </label>
-        <label class="layer-item">
-          <input type="checkbox" data-layer="layer-ndvi" checked />
-          <span class="dot" style="background:#34d399;"></span>
-          <span class="label">NDVI (végétation)</span>
-        </label>
-        <label class="layer-item">
-          <input type="checkbox" data-layer="layer-hydro" checked />
-          <span class="dot" style="background:#38bdf8;"></span>
-          <span class="label">Hydrographie</span>
-        </label>
-        <label class="layer-item">
-          <input type="checkbox" data-layer="layer-limites" />
-          <span class="dot" style="background:#e6edf7;"></span>
-          <span class="label">Limites administratives</span>
-        </label>
-        <label class="layer-item">
-          <input type="checkbox" data-layer="layer-feu" checked />
-          <span class="dot" style="background:#ef4444;"></span>
-          <span class="label">Trace du feu</span>
-        </label>
-        <label class="layer-item">
-          <input type="checkbox" data-layer="layer-poi" checked />
-          <span class="dot" style="background:#f4c542;"></span>
-          <span class="label">Points d'intérêt</span>
-        </label>
-        <label class="layer-item">
-          <input type="checkbox" data-layer="layer-grille" checked />
-          <span class="dot" style="background:#93a4bf;"></span>
-          <span class="label">Fond OpenStreetMap</span>
-        </label>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== MODÉLISATION ===== -->
-  <section id="modelisation">
-    <h2>Modélisation CA-Markov des changements futurs</h2>
-    <p class="subtitle">Projection de l'occupation du sol par automate cellulaire.</p>
-    <div class="model-wrap">
-      <div id="markovMap"></div>
-      <div class="model-side">
-        <h3>Part des classes à l'horizon <span id="markovYearLabel">10 ans</span></h3>
-        <div class="model-year" id="markovYear"></div>
-        <div class="scenario-bar">
-          <div class="bar-head">
-            <span>🟩 Végétation</span>
-            <span id="pctVeg">–</span>
-          </div>
-          <div class="bar-track">
-            <div class="bar-fill" id="barVeg" style="background:#1f8a4c;"></div>
-          </div>
-        </div>
-        <div class="scenario-bar">
-          <div class="bar-head">
-            <span>🟨 Agriculture</span>
-            <span id="pctAgri">–</span>
-          </div>
-          <div class="bar-track">
-            <div class="bar-fill" id="barAgri" style="background:#f4c542;"></div>
-          </div>
-        </div>
-        <div class="scenario-bar">
-          <div class="bar-head">
-            <span>🟥 Urbain</span>
-            <span id="pctUrb">–</span>
-          </div>
-          <div class="bar-track">
-            <div class="bar-fill" id="barUrb" style="background:#55616f;"></div>
-          </div>
-        </div>
-        <div class="scenario-bar">
-          <div class="bar-head">
-            <span>🟦 Eau</span>
-            <span id="pctEau">–</span>
-          </div>
-          <div class="bar-track">
-            <div class="bar-fill" id="barEau" style="background:#1e5aa8;"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="timeline">
-      <select id="markovSelect" aria-label="Sélection de l'horizon">
-        <option value="10">Projection: +10 ans (2036)</option>
-        <option value="20">Projection: +20 ans (2046)</option>
-        <option value="30">Projection: +30 ans (2056)</option>
-        <option value="40">Projection: +40 ans (2066)</option>
-        <option value="60">Projection: +60 ans (2086)</option>
-        <option value="100">Projection: +100 ans (2126)</option>
-      </select>
-      <button class="play" id="markovPlay">▶ Lecture</button>
-      <input type="range" id="markovSlider" min="0" max="5" step="1" value="0" />
-      <div class="years">
-        <button data-years="10">10 ans</button>
-        <button data-years="20">20 ans</button>
-        <button data-years="30">30 ans</button>
-        <button data-years="40">40 ans</button>
-        <button data-years="60">60 ans</button>
-        <button data-years="100">100 ans</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== TIMELAPSE ===== -->
-  <section id="timelapse">
-    <h2>Timelapse des projections CA-Markov</h2>
-    <p class="subtitle">Défilement animé des cartes projetées.</p>
-    <div class="timelapse-panel">
-      <div class="tl-frame" id="tlFrame">
-        <div class="tl-badge" id="tlBadge">+10 ans (2036)</div>
-        <div class="tl-progress" id="tlProgress"></div>
-        <div id="tlMap"></div>
-        <div class="tl-map-placeholder" id="tlPlaceholder">
-          <span class="icon" style="font-size:2rem; display:block; margin-bottom:0.4rem;">🗺️</span>
-          <strong id="tlPlaceholderText">Emplacement image: projection +10 ans</strong>
-        </div>
-      </div>
-      <div class="tl-controls">
-        <button id="tlPrev">⏮ Précédent</button>
-        <button id="tlPlayPause" class="play">▶ Lecture</button>
-        <button id="tlNext">Suivant ⏭</button>
-        <label style="color:var(--muted); font-size:0.85rem;">
-          Vitesse
-          <input type="range" id="tlSpeed" min="400" max="3000" step="200" value="1500" style="width:120px; vertical-align:middle;" />
-        </label>
-      </div>
-      <div class="tl-thumbs" id="tlThumbs">
-        <div class="tl-thumb active" data-years="10">+10 ans</div>
-        <div class="tl-thumb" data-years="20">+20 ans</div>
-        <div class="tl-thumb" data-years="30">+30 ans</div>
-        <div class="tl-thumb" data-years="40">+40 ans</div>
-        <div class="tl-thumb" data-years="60">+60 ans</div>
-        <div class="tl-thumb" data-years="100">+100 ans</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== CONTACT ===== -->
-  <section id="contact">
-    <h2>Contact</h2>
-    <p class="subtitle">Une question sur le projet ?</p>
-    <form id="contactForm">
-      <div>
-        <label for="name">Nom</label>
-        <input id="name" type="text" required placeholder="Votre nom" />
-      </div>
-      <div>
-        <label for="email">Email</label>
-        <input id="email" type="email" required placeholder="vous@exemple.fr" />
-      </div>
-      <div>
-        <label for="message">Message</label>
-        <textarea id="message" rows="4" required placeholder="Votre message…"></textarea>
-      </div>
-      <button type="submit">Envoyer</button>
-      <p class="form-msg" id="formMsg">✅ Merci ! Votre message a bien été pris en compte.</p>
-    </form>
-  </section>
-
-  <footer>
-    © 2026 GeoSense — Projet de télédétection | Données: Copernicus Sentinel-2 (ESA)
-  </footer>
-
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-  <script>
-    // ===== 0. Fallback si Leaflet n'est pas chargé =====
-    if (typeof L === "undefined") {
-      document.getElementById("osmMap").innerHTML =
-        '<div style="height:100%; display:flex; align-items:center; justify-content:center; color:#93a4bf; font-size:0.9rem; padding:1.5rem;">🗺️ Carte Leaflet : le fond se charge en local ou en ligne.</div>';
-      document.getElementById("markovMap").innerHTML =
-        '<div style="height:100%; display:flex; align-items:center; justify-content:center; color:#93a4bf; font-size:0.9rem; padding:1.5rem;">📈 Carte CA-Markov : projections 10 → 100 ans.</div>';
-      document.getElementById("tlMap").style.display = "none";
-      document.getElementById("ndviMap").innerHTML =
-        '<div style="height:100%; display:flex; align-items:center; justify-content:center; color:#93a4bf; font-size:0.9rem; padding:1.5rem;">🌿 Carte NDVI : images à ajouter.</div>';
-    }
-
-    // ===== 1. Menu mobile =====
-    const burger = document.getElementById("burger");
-    const navLinks = document.getElementById("navLinks");
-    burger.addEventListener("click", () => navLinks.classList.toggle("open"));
-    navLinks.querySelectorAll("a").forEach(a =>
-      a.addEventListener("click", () => navLinks.classList.remove("open"))
-    );
-
-    // ===== 2. Navigation active =====
-    const sections = document.querySelectorAll("section");
-    const navAnchors = document.querySelectorAll(".nav-links a");
-    window.addEventListener("scroll", () => {
-      let current = "";
-      sections.forEach(s => {
-        if (window.scrollY >= s.offsetTop - 120) current = s.id;
-      });
-      navAnchors.forEach(a =>
-        a.classList.toggle("active", a.getAttribute("href") === "#" + current)
-      );
-    });
-
-    // ===== 3. Compteurs animés =====
-    function animateCounters() {
-      document.querySelectorAll(".stat .value").forEach(el => {
-        const target = +el.dataset.target;
-        let start = null;
-        const duration = 1200;
-        function step(ts) {
-          if (!start) start = ts;
-          const p = Math.min((ts - start) / duration, 1);
-          el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3)));
-          if (p < 1) requestAnimationFrame(step);
-        }
-        requestAnimationFrame(step);
-      });
-    }
-    const statsSection = document.getElementById("donnees");
-    const statsObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(e => {
-          if (e.isIntersecting) {
-            animateCounters();
-            statsObserver.disconnect();
-          }
-        });
-      },
-      { threshold: 0.3 }
-    );
-    statsObserver.observe(statsSection);
-
-    // ===== 4. CARTE NDVI AVEC SOLUTION GARANTIE =====
-    let ndviMap = null;
-    let ndviBeforeLayer = null;
-    let ndviAfterLayer = null;
-    const girondeBounds = [[44.5, -1.0], [45.5, 0.5]]; // Ajuste ces coordonnées si nécessaire
-
-    // ==== FONCTION POUR CHARGER LES IMAGES DEPUIS GITHUB (même avec espaces) ====
-    async function loadImageAsBlob(url) {
-      try {
-        const response = await fetch(url);
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        const blob = await response.blob();
-        return URL.createObjectURL(blob);
-      } catch (error) {
-        console.error("Erreur de chargement de l'image:", error);
-        return null;
-      }
-    }
-
-    // ==== INITIALISATION DE LA CARTE NDVI ====
-    if (typeof L !== "undefined") {
-      ndviMap = L.map("ndviMap").setView([44.8378, -0.5792], 10);
-
-      // Ajout du fond OpenStreetMap
-      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(ndviMap);
-
-      // ⬇️ ⬇️ ⬇️ REMPLACE CES URL PAR TES LIENS GITHUB EXACTS ⬇️ ⬇️ ⬇️
-      // Exemple: "https://raw.githubusercontent.com/ton-user/ton-repo/main/Processings/Modified Data/Indices/NDVI/Before the fire/ROI_CC_NDVI_AV_CUT_JPG.jpg"
-      const beforeImageUrl = "https://raw.githubusercontent.com/ton-user/Remote-Sensing-Project-Frery-Doumbia-/main/Processings/Modified%20Data/Indices/NDVI/Before%20the%20fire/ROI_CC_NDVI_AV_CUT_JPG.jpg";
-      const afterImageUrl = "https://raw.githubusercontent.com/ton-user/Remote-Sensing-Project-Frery-Doumbia-/main/Processings/Modified%20Data/Indices/NDVI/After%20the%20fire/ROI_CC_NDVI_AP_CUT_JPG.jpg";
-      // ⬆️ ⬆️ ⬆️ REMPLACE CES URL PAR TES LIENS GITHUB EXACTS ⬆️ ⬆️ ⬆️
-
-      // Charge les images et crée les couches
-      Promise.all([
-        loadImageAsBlob(beforeImageUrl),
-        loadImageAsBlob(afterImageUrl)
-      ]).then(([beforeBlobUrl, afterBlobUrl]) => {
-        if (beforeBlobUrl && afterBlobUrl) {
-          ndviBeforeLayer = L.imageOverlay(beforeBlobUrl, girondeBounds, {
-            opacity: 0.7,
-            zIndex: 10,
-            interactive: false
-          });
-
-          ndviAfterLayer = L.imageOverlay(afterBlobUrl, girondeBounds, {
-            opacity: 0.7,
-            zIndex: 10,
-            interactive: false
-          });
-
-          ndviBeforeLayer.addTo(ndviMap);
-
-          // Gestion des boutons
-          document.getElementById("ndviBeforeBtn").addEventListener("click", () => {
-            ndviMap.removeLayer(ndviAfterLayer);
-            ndviBeforeLayer.addTo(ndviMap);
-            document.getElementById("ndviBeforeBtn").classList.add("active");
-            document.getElementById("ndviAfterBtn").classList.remove("active");
-          });
-
-          document.getElementById("ndviAfterBtn").addEventListener("click", () => {
-            ndviMap.removeLayer(ndviBeforeLayer);
-            ndviAfterLayer.addTo(ndviMap);
-            document.getElementById("ndviBeforeBtn").classList.remove("active");
-            document.getElementById("ndviAfterBtn").classList.add("active");
-          });
-        } else {
-          console.error("Impossible de charger une ou plusieurs images NDVI.");
-          document.getElementById("ndviMap").innerHTML =
-            '<div style="height:100%; display:flex; align-items:center; justify-content:center; color:#ef4444; font-size:0.9rem; padding:1.5rem;">❌ Erreur de chargement des images NDVI. Vérifiez les URLs dans le code.</div>';
-        }
-      }).catch(error => {
-        console.error("Erreur lors du chargement des images:", error);
-      });
-    }
-
-    // ===== 5. Carte interactive Leaflet =====
-    let osmMap = null;
-    if (typeof L !== "undefined") {
-      osmMap = L.map("osmMap").setView([48.8566, 2.3522], 12);
-
-      const osmBase = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(osmMap);
-
-      const sentinelLayer = L.tileLayer("https://services.sentinel-hub.com/ogc/wms/{your-instance-id}", {
-        layers: "FALSE_COLOR", maxZoom: 19, opacity: 0.7
-      });
-
-      const occupationLayer = L.geoJSON({
-        type: "FeatureCollection",
-        features: [
-          { type: "Feature", properties: { name: "Zone agricole", type: "Agriculture" },
-            geometry: { type: "Polygon", coordinates: [[[2.30, 48.87], [2.40, 48.87], [2.40, 48.83], [2.30, 48.83], [2.30, 48.87]]] } },
-          { type: "Feature", properties: { name: "Zone urbaine", type: "Urbain" },
-            geometry: { type: "Polygon", coordinates: [[[2.32, 48.86], [2.37, 48.86], [2.37, 48.84], [2.32, 48.84], [2.32, 48.86]]] } },
-          { type: "Feature", properties: { name: "Espace vert", type: "Végétation" },
-            geometry: { type: "Polygon", coordinates: [[[2.40, 48.86], [2.46, 48.86], [2.46, 48.82], [2.40, 48.82], [2.40, 48.86]]] } }
-        ]
-      }, {
-        style: f => ({
-          color: "#38bdf8", weight: 2, fillOpacity: 0.25,
-          fillColor: { "Agriculture": "#f4c542", "Urbain": "#55616f", "Végétation": "#1f8a4c" }[f.properties.type]
-        }),
-        onEachFeature: (f, layer) => layer.bindPopup(`<strong>${f.properties.name}</strong><br>${f.properties.type}`)
-      }).addTo(osmMap);
-
-      const hydroLayer = L.polyline([[48.86, 2.32], [48.85, 2.38], [48.83, 2.42], [48.81, 2.47]], {
-        color: "#38bdf8", weight: 4, opacity: 0.8
-      }).bindPopup("Cours d'eau principal");
-
-      const limitesLayer = L.rectangle([[48.845, 2.30], [48.87, 2.46]], {
-        color: "#e6edf7", weight: 2, dashArray: "8 6", fill: false
-      }).bindPopup("Emprise du projet");
-
-      const FIRE_GEOJSON = {
-        type: "FeatureCollection",
-        features: [{
-          type: "Feature",
-          properties: {
-            name: "Trace du feu — secteur étudié",
-            date: "2026-07-14",
-            surface_ha: 385,
-            cause: "Simulée (à remplacer par les données réelles)"
-          },
-          geometry: {
-            type: "Polygon",
-            coordinates: [[[2.35, 48.86], [2.41, 48.855], [2.44, 48.83], [2.42, 48.79], [2.36, 48.795], [2.33, 48.82], [2.325, 48.85], [2.35, 48.86]]]
-          }
-        }]
-      };
-
-      const feuLayer = L.geoJSON(FIRE_GEOJSON, {
-        style: {
-          color: "#ef4444", weight: 3, fillOpacity: 0.3,
-          fillColor: "#ef4444", dashArray: "6 4"
-        },
-        onEachFeature: (f, layer) => layer.bindPopup(
-          `<strong>🔥 ${f.properties.name}</strong><br>` +
-          `Date : ${f.properties.date}<br>Surface estimée : ${f.properties.surface_ha} ha<br>` +
-          `<em>${f.properties.cause}</em>`
-        )
-      }).addTo(osmMap);
-
-      const poiLayer = L.layerGroup([
-        L.marker([48.8584, 2.2945]).bindPopup("<strong>Parcelle A</strong><br>NDVI moyen : 0,72"),
-        L.marker([48.8450, 2.4000]).bindPopup("<strong>Parcelle B</strong><br>NDVI moyen : 0,81"),
-        L.marker([48.8300, 2.4400]).bindPopup("<strong>Station terrain</strong><br>Mesures de validation")
-      ]).addTo(osmMap);
-
-      const layerMap = {
-        "layer-occupation": occupationLayer,
-        "layer-ndvi": sentinelLayer,
-        "layer-hydro": hydroLayer,
-        "layer-limites": limitesLayer,
-        "layer-feu": feuLayer,
-        "layer-poi": poiLayer,
-        "layer-grille": osmBase
-      };
-      document.querySelectorAll('.layer-item input[data-layer]').forEach(cb => {
-        cb.addEventListener("change", () => {
-          const layer = layerMap[cb.dataset.layer];
-          if (!layer) return;
-          if (cb.checked) layer.addTo(osmMap); else osmMap.removeLayer(layer);
-        });
-      });
-    }
-
-    // ===== 6. Modélisation CA-Markov =====
-    const HORIZONS = [10, 20, 30, 40, 60, 100];
-    const MARKOV_STATS = {
-      10:  { veg: 38, agri: 32, urb: 20, eau: 10 },
-      20:  { veg: 35, agri: 29, urb: 26, eau: 10 },
-      30:  { veg: 32, agri: 26, urb: 32, eau: 10 },
-      40:  { veg: 29, agri: 23, urb: 38, eau: 10 },
-      60:  { veg: 24, agri: 18, urb: 48, eau: 10 },
-      100: { veg: 17, agri: 12, urb: 61, eau: 10 }
-    };
-
-    const MARKOV_ZONES = [
-      { coords: [[2.30, 48.87], [2.46, 48.87], [2.46, 48.82], [2.30, 48.82]], from: "agri", to: "urb", switchYear: 30 },
-      { coords: [[2.40, 48.86], [2.50, 48.86], [2.50, 48.81], [2.40, 48.81]], from: "veg",  to: "agri", switchYear: 40 },
-      { coords: [[2.30, 48.82], [2.42, 48.82], [2.42, 48.77], [2.30, 48.77]], from: "agri", to: "urb", switchYear: 20 },
-      { coords: [[2.42, 48.82], [2.55, 48.82], [2.55, 48.77], [2.42, 48.77]], from: "veg",  to: "urb", switchYear: 60 },
-      { coords: [[2.46, 48.87], [2.58, 48.87], [2.58, 48.83], [2.46, 48.83]], from: "veg",  to: "agri", switchYear: 60 },
-      { coords: [[2.30, 48.77], [2.44, 48.77], [2.44, 48.73], [2.30, 48.73]], from: "agri", to: "urb", switchYear: 40 }
-    ];
-    const CLASS_COLORS = { veg: "#1f8a4c", agri: "#f4c542", urb: "#55616f", eau: "#1e5aa8" };
-    const CLASS_NAMES  = { veg: "Végétation", agri: "Agriculture", urb: "Urbain", eau: "Eau" };
-
-    let markovMap = null, markovLayers = {}, playTimer = null;
-    const markovSlider = document.getElementById("markovSlider");
-    const markovPlay = document.getElementById("markovPlay");
-
-    if (typeof L !== "undefined") {
-      markovMap = L.map("markovMap").setView([48.82, 2.42], 12);
-      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(markovMap);
-
-      const feuMarkovLayer = L.geoJSON(FIRE_GEOJSON, {
-        style: { color: "#ef4444", weight: 3, fillOpacity: 0.35, fillColor: "#ef4444", dashArray: "6 4" },
-        onEachFeature: (f, layer) => layer.bindPopup(
-          `<strong>🔥 ${f.properties.name}</strong><br>` +
-          `Surface estimée : ${f.properties.surface_ha} ha<br>` +
-          "La modélisation CA-Markov projette la recolonisation végétale de cette emprise."
-        )
-      }).addTo(markovMap);
-
-      function getLayer(years) {
-        if (!markovLayers[years]) {
-          markovLayers[years] = L.layerGroup(
-            MARKOV_ZONES.map(z => {
-              const cls = years >= z.switchYear ? z.to : z.from;
-              return L.polygon(z.coords, {
-                color: "#0b1220", weight: 1.5,
-                fillColor: CLASS_COLORS[cls], fillOpacity: 0.65
-              }).bindPopup(
-                `<strong>${CLASS_NAMES[cls]}</strong><br>Horizon : +${years} ans<br>` +
-                (cls !== z.from ? `Transition : ${CLASS_NAMES[z.from]} → ${CLASS_NAMES[z.to]}` : "Classe stable")
-              );
-            })
-          );
-        }
-        return markovLayers[years];
-      }
-
-      function showHorizon(years) {
-        Object.values(markovLayers).forEach(l => markovMap.removeLayer(l));
-        getLayer(years).addTo(markovMap);
-        const s = MARKOV_STATS[years];
-        document.getElementById("markovYear").textContent = `Année projetée : ${2026 + years}`;
-        document.getElementById("markovYearLabel").textContent = `+${years} ans`;
-        document.getElementById("pctVeg").textContent = s.veg + " %";
-        document.getElementById("pctAgri").textContent = s.agri + " %";
-        document.getElementById("pctUrb").textContent = s.urb + " %";
-        document.getElementById("pctEau").textContent = s.eau + " %";
-        document.getElementById("barVeg").style.width = s.veg + "%";
-        document.getElementById("barAgri").style.width = s.agri + "%";
-        document.getElementById("barUrb").style.width = s.urb + "%";
-        document.getElementById("barEau").style.width = s.eau + "%";
-        markovSlider.value = HORIZONS.indexOf(years);
-        markovSelect.value = String(years);
-        document.querySelectorAll('.timeline .years button').forEach(b =>
-          b.classList.toggle("active", +b.dataset.years === years)
-        );
-      }
-
-      const markovSelect = document.getElementById("markovSelect");
-      markovSlider.addEventListener("input", () => showHorizon(HORIZONS[+markovSlider.value]));
-      markovSelect.addEventListener("change", () => showHorizon(+markovSelect.value));
-      document.querySelectorAll('.timeline .years button').forEach(b =>
-        b.addEventListener("click", () => showHorizon(+b.dataset.years))
-      );
-      markovPlay.addEventListener("click", () => {
-        if (playTimer) { clearInterval(playTimer); playTimer = null; markovPlay.textContent = "▶ Lecture"; return; }
-        markovPlay.textContent = "⏸ Pause";
-        let i = 0;
-        playTimer = setInterval(() => {
-          showHorizon(HORIZONS[i % HORIZONS.length]);
-          i++;
-        }, 1600);
-      });
-      showHorizon(10);
-      window._markovShowHorizon = showHorizon;
-    }
-
-    // ===== 7. Apparition au scroll =====
-    document.querySelectorAll("section, .card, .step, .stat, .model-side .scenario-bar").forEach(el => el.classList.add("reveal"));
-    document.querySelectorAll(".grid .card, .stats .stat").forEach(el => {
-      const i = [...el.parentElement.children].indexOf(el);
-      el.classList.add("delay-" + ((i % 3) + 1));
-    });
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add("visible");
-          revealObserver.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    document.querySelectorAll(".reveal").forEach(el => revealObserver.observe(el));
-
-    // ===== 8. Recalcul des cartes au redimensionnement =====
-    let resizeTimer = null;
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        if (typeof L !== "undefined") {
-          if (osmMap) osmMap.invalidateSize();
-          if (markovMap) markovMap.invalidateSize();
-          if (tlMap) tlMap.invalidateSize();
-          if (ndviMap) ndviMap.invalidateSize();
-        }
-      }, 200);
-    });
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && navLinks.classList.contains("open")) navLinks.classList.remove("open");
-    });
-
-    // ===== 9. Timelapse =====
-    const tlThumbs = [...document.querySelectorAll(".tl-thumb")];
-    const tlBadge = document.getElementById("tlBadge");
-    const tlPlaceholder = document.getElementById("tlPlaceholder");
-    const tlPlaceholderText = document.getElementById("tlPlaceholderText");
-    const tlProgress = document.getElementById("tlProgress");
-    const tlPlayPause = document.getElementById("tlPlayPause");
-    const tlSpeed = document.getElementById("tlSpeed");
-    let tlIndex = 0, tlTimer = null, tlStepStart = null;
-    let tlMap = null, tlOverlays = [];
-
-    const TL_IMAGES = [
-      { years: 10, url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] },
-      { years: 20, url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] },
-      { years: 30, url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] },
-      { years: 40, url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] },
-      { years: 60, url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] },
-      { years: 100, url: null, bounds: [[48.77, 2.30], [48.87, 2.50]] }
-    ];
-
-    if (typeof L !== "undefined") {
-      tlMap = L.map("tlMap", { attributionControl: true }).setView([48.82, 2.42], 12);
-      L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
-        maxZoom: 19,
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      }).addTo(tlMap);
-      tlOverlays = TL_IMAGES.map(t => t.url ? L.imageOverlay(t.url, t.bounds, { opacity: 0.85 }) : null);
-    } else {
-      document.getElementById("tlMap").style.display = "none";
-    }
-
-    function tlShow(i) {
-      tlIndex = (i + TL_IMAGES.length) % TL_IMAGES.length;
-      const cur = TL_IMAGES[tlIndex];
-      tlThumbs.forEach((t, k) => t.classList.toggle("active", k === tlIndex));
-      tlBadge.textContent = `+${cur.years} ans (${2026 + cur.years})`;
-      tlProgress.style.width = ((tlIndex + 1) / TL_IMAGES.length * 100) + "%";
-      if (tlMap) {
-        tlOverlays.forEach((o, k) => {
-          if (!o) return;
-          if (k === tlIndex) o.addTo(tlMap); else tlMap.removeLayer(o);
-        });
-        tlPlaceholder.style.display = cur.url ? "none" : "";
-      }
-      tlPlaceholderText.textContent = `Emplacement image : projection +${cur.years} ans`;
-      if (typeof window._markovShowHorizon === "function") window._markovShowHorizon(cur.years);
-    }
-
-    function tlTick(ts) {
-      if (tlStepStart === null) tlStepStart = ts;
-      const speed = +tlSpeed.value;
-      if (ts - tlStepStart >= speed) { tlStepStart = ts; tlShow(tlIndex + 1); }
-      if (tlTimer !== null) requestAnimationFrame(tlTick);
-    }
-
-    function tlPlay() {
-      tlTimer = requestAnimationFrame(tlTick);
-      tlPlayPause.textContent = "⏸ Pause";
-    }
-    function tlPause() {
-      if (tlTimer !== null) cancelAnimationFrame(tlTimer);
-      tlTimer = null; tlStepStart = null;
-      tlPlayPause.textContent = "▶ Lecture";
-    }
-
-    tlPlayPause.addEventListener("click", () => tlTimer === null ? tlPlay() : tlPause());
-    document.getElementById("tlPrev").addEventListener("click", () => tlShow(tlIndex - 1));
-    document.getElementById("tlNext").addEventListener("click", () => tlShow(tlIndex + 1));
-    tlThumbs.forEach((t, k) => t.addEventListener("click", () => { tlPause(); tlShow(k); }));
-    tlSpeed.addEventListener("input", () => { tlStepStart = null; });
-    tlShow(0);
-
-    // ===== 10. Formulaire =====
-    document.getElementById("contactForm").addEventListener("submit", (e) => {
-      e.preventDefault();
-      document.getElementById("formMsg").style.display = "block";
-      e.target.reset();
-    });
-  </script>
-</body>
-</html>
+          <p>Calculation of Principal
     function drawNDVI() {
       const threshold = slider.value / 100;
       value
