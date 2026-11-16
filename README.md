@@ -1,6 +1,6 @@
 # Remote-Sensing-Project-Frery-Doumbia-
 
-This is the page of the project of the detection of the "sites a focées" in Madagascar using Remote Sensing , Statistics , Machine and Deep Learning algorithms for classification and prediction 
+This is the page of the project of the detection of the "sites a focées" in Madagascar  in the zone of Ankadivory using Remote Sensing , Statistics , Machine and Deep Learning algorithms for classification and prediction 
 
 The folder "Processings" contains all unprocessed master data and processed data , with Indices (NDVI) , ratio (CTVI) , color composites , statistical processing (Principal Component Analysis (PCA) , Minimum Noise Fraction (MNF)) , Models of Unsupervised (K-Means , Isoclust , K-Nearest Neigbhors (KNN) ) and Supervised classification (Random Forest , Support Vector Machine (SVM)) before and after the the wildfire 
 
